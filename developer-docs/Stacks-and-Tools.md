@@ -20,7 +20,6 @@ Last updated: 2026-06-01
 ## CLI Names
 
 - Canonical command: `spiderrose`
-- Compatibility command: `agentforge`
 
 ## Packaging
 

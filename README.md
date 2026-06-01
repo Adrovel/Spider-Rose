@@ -55,12 +55,6 @@ Inside Spider Rose:
 /exit
 ```
 
-The legacy handover command name is also supported:
-
-```bash
-agentforge
-```
-
 ## Project Files Created Automatically
 
 ```text

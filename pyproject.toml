@@ -28,7 +28,6 @@ dev = [
 
 [project.scripts]
 spiderrose = "spider_rose.cli:app"
-agentforge = "spider_rose.cli:app"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

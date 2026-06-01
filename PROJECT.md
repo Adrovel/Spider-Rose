@@ -8,7 +8,6 @@ Spider Rose is a developer-first, terminal-native multi-agent orchestration plat
 |---|---|
 | Product | Spider Rose |
 | CLI | `spiderrose` |
-| Compatibility alias | `agentforge` |
 | Purpose | Create, edit, and run local agents from the terminal and visual app |
 | Primary users | AI engineers, software engineers, LangGraph users, open-source agent builders |
 | Owners | Joel and Mukthar |
