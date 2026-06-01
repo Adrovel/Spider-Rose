@@ -99,6 +99,8 @@ agent-library/
   reviewer.md
 ```
 
+Stored custom agent ideas live in [Custom Agents](./Custom-Agents.md).
+
 The library is not a marketplace. It should not require accounts, publishing, ratings, or remote sync in the current plan.
 
 ## Not Active Now
