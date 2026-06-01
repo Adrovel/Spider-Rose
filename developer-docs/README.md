@@ -10,6 +10,7 @@ Purpose: canonical implementation, planning, architecture, and team docs for Spi
 
 - [Architecture](./Architecture.md)
 - [Stacks and Tools](./Stacks-and-Tools.md)
+- [Product Principles](./Product-Principles.md)
 - [Features](./Features.md)
 - [Plan](./Plan.md)
 - [Atomic Plan](./Atomic-Plan.md)
