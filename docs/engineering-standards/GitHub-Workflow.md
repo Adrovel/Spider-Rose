@@ -155,6 +155,8 @@ At the end of every Codex session:
 5. Open or create a pull request.
 6. Merge or push to `main` when the change is production-ready.
 
+Engineering standards must be included in the session push whenever they changed, and this file should stay uploaded with the rest of the app docs.
+
 If there are unrelated local changes, do not include them unless they are clearly part of the same task.
 
 If tests fail, do not merge to `main`; commit only if the failure is documented and the user approves.

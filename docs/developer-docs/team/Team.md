@@ -1,0 +1,63 @@
+# Spider Rose Team
+
+Version: 0.1.0  
+Status: Active team plan  
+Last updated: 2026-06-01
+
+## Capacity
+
+Planning capacity:
+
+| Person | Weekly capacity | Daily rhythm | Planning rule |
+|---|---:|---:|---|
+| Joel | 20 hours/week | about 2-3 hours/day | product, architecture, review, release quality |
+| Mukthar | 20 hours/week | about 2-3 hours/day | implementation, tests, UI polish, docs updates |
+
+Combined planning capacity is 40 hours/week. Plans should assume small, independently shippable tasks because both contributors work limited daily blocks.
+
+## Joel
+
+Joel owns product direction, architecture shape, CLI ergonomics, and final project quality.
+
+Best tasks:
+
+- define command surface
+- approve workflow and runtime boundaries
+- write design decisions
+- review terminal UX
+- decide when LangGraph support is MVP-ready
+
+Non-blocking work:
+
+- write or update product docs while Mukthar implements
+- review CLI and UI behavior after small task branches land
+- define feature boundaries before implementation starts
+- prepare public positioning once completion reaches 40%
+
+## Mukthar
+
+Mukthar owns scoped implementation work, test coverage, documentation upkeep, and visualisation support.
+
+Best tasks:
+
+- implement small CLI commands
+- add tests for parser and runtime behavior
+- improve docs after implementation
+- implement React Flow screens once API contracts are stable
+- validate terminal examples on a clean machine
+
+Non-blocking work:
+
+- implement terminal UI tasks from documented acceptance criteria
+- add focused tests without waiting for visual design polish
+- update docs after code behavior changes
+- prepare screenshots/demo artifacts once publicisation starts
+
+## Shared Rules
+
+- Keep terminal use working before workflow features.
+- Update developer docs when changing architecture or command behavior.
+- Do not add a third definition format.
+- Do not introduce cloud assumptions into the MVP.
+- Keep Joel and Mukthar unblocked by splitting work into independent tasks.
+- Publicise the app when the plan reaches 40% completion.

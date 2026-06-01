@@ -1,7 +1,7 @@
 # Spider Rose Terminal UX Plan
 
 Version: 0.1.0  
-Status: Draft for Phase 1 hardening  
+Status: Active terminal UI plan  
 Last updated: 2026-06-01
 
 Purpose: define how `spiderrose` should feel in the terminal before adding workflow complexity.
@@ -27,6 +27,19 @@ Inside the shell:
 /help
 /exit
 ```
+
+## Required Terminal UI
+
+The terminal should have a stable app shape:
+
+- header with current project path
+- default agent indicator
+- scrollable message history
+- command response area
+- fixed command input line
+- compact help text when `/help` is used
+
+Plain text can become a task for the default agent after the shell has a clear UI. Slash commands remain the reliable app-control layer.
 
 ## First-Run Behavior
 
@@ -93,19 +106,18 @@ Behavior:
 
 - start the local server
 - open the browser when possible
-- show only agent creation/editing in Phase 1
+- show agent creation and editing
+- show the workflow canvas
+- support visual connector edges between agent cards
 - show where each agent file is stored
 
 ## Future Terminal Ideas
 
 Archive these until workflows exist:
 
-- Codex/Claude-style chat terminal where plain text is treated as a task
-- slash commands remain reserved for app actions
 - multiline input composer
 - streaming output panels
 - keyboard shortcuts for cancel, clear, history, and agent switching
-- visible current agent/default project state
 - `/new workflow <name>`
 - `/connect <from> <to>`
 - `/run workflow <name> <task>`

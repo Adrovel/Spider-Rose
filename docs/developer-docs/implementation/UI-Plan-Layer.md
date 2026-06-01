@@ -26,10 +26,12 @@ Current commands:
 
 Planned terminal direction:
 
+- persistent terminal screen layout
+- visible message history
+- stable input area
+- current project and default agent context
 - plain text becomes a task for the current/default agent
 - slash commands control the app
-- responses stream in the terminal
-- keyboard shortcuts handle cancel, clear, and history
 
 ## Layer 2 - Agent Editor
 
@@ -67,6 +69,7 @@ Route:
 Purpose for now:
 
 - movable agent cards
+- directional connector edges between cards
 - visual planning surface
 - Excalidraw-like freedom without full workflow complexity
 
@@ -81,9 +84,15 @@ Current behavior:
 - each card opens a detail popup with Markdown, LangGraph, and Tools views
 - canvas layout is stored in `workflow-layout.json`
 
+Required next behavior:
+
+- connect one card to another
+- render directional edges
+- save edges with the canvas layout
+- edit or remove edges
+
 Not included yet:
 
-- edges
 - execution order
 - run logs
 - workflow validation
@@ -95,7 +104,6 @@ Only add this after the canvas is useful.
 
 Future behavior:
 
-- connect cards with edges
 - mark start agent
 - save workflow definitions
 - run a workflow from terminal

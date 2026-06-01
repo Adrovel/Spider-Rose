@@ -1,35 +1,55 @@
 # Spider Rose Developer Docs
 
 Version: 0.1.0  
-Status: Phase 1 scope locked  
+Status: Working developer docs  
 Last updated: 2026-06-01
 
-Purpose: canonical implementation, planning, architecture, and team docs for Spider Rose.
+This folder is the working map for Spider Rose development. Start here, then open the smallest doc that matches the work.
 
-## Canonical Docs
+## Start Here
 
-- [Architecture](./Architecture.md)
-- [Stacks and Tools](./Stacks-and-Tools.md)
-- [Product Principles](./Product-Principles.md)
-- [Description](./Description.md)
-- [Features](./Features.md)
-- [Plan](./Plan.md)
-- [Atomic Plan](./Atomic-Plan.md)
-- [Terminal UX Plan](./Terminal-UX-Plan.md)
-- [UI Plan Layer](./UI-Plan-Layer.md)
-- [Future Features](./Future-Features.md)
-- [Agents](./Agents.md)
-- [Team](./Team.md)
+- [Product description](./product/Description.md)
+- [Current features](./product/Features.md)
+- [Architecture](./implementation/Architecture.md)
+- [Implementation plan](./planning/Plan.md)
 
-## Research Docs
+## Product
 
-Research notes live one level up in [`../research-docs/`](../research-docs/README.md).
+Product docs explain what Spider Rose is, who it is for, and what promises the app should keep.
 
-## Engineering Standards
+- [Description](./product/Description.md)
+- [Features](./product/Features.md)
+- [Product Principles](./product/Product-Principles.md)
 
+## Implementation
+
+Implementation docs describe the current code shape, file model, command surface, and UI behavior.
+
+- [Architecture](./implementation/Architecture.md)
+- [Agents](./implementation/Agents.md)
+- [Stacks and Tools](./implementation/Stacks-and-Tools.md)
+- [Terminal UX Plan](./implementation/Terminal-UX-Plan.md)
+- [UI Plan Layer](./implementation/UI-Plan-Layer.md)
+
+## Planning
+
+Planning docs track phased work, atomic tasks, and features intentionally pushed out of the current MVP.
+
+- [Plan](./planning/Plan.md)
+- [Atomic Plan](./planning/Atomic-Plan.md)
+- [Future Features](./planning/Future-Features.md)
+
+## Team
+
+- [Team](./team/Team.md)
+- [Design Choices](./team/Design-Choices.md)
+
+## Related Docs
+
+- [Research Docs](../research-docs/README.md)
 - [GitHub Workflow Standards](../engineering-standards/GitHub-Workflow.md)
 
-## Component Docs
+## Component Review
 
 Storybook is used for UI component review.
 
@@ -40,8 +60,4 @@ npm run build-storybook
 
 ## Organization Rule
 
-Keep docs short and decision-oriented. If a doc starts mixing architecture, roadmap, task tracking, and research, split it before implementation continues.
-
-## Ownership
-
-Joel and Mukthar are the active collaborators for Spider Rose.
+Keep docs short and decision-oriented. If a doc starts mixing product description, architecture, roadmap, task tracking, and research, split it before implementation continues.
