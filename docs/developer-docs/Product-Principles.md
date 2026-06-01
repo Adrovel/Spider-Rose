@@ -20,7 +20,7 @@ The user should not need to understand orchestration theory, LangGraph internals
 
 Default behavior should be useful:
 
-- new projects preload a `researcher` agent
+- new projects preload `hello` and `researcher` agents
 - users can type natural tasks
 - slash commands are reserved for app actions
 - generated files are visible and editable

@@ -38,10 +38,11 @@ def init_project(path: Path, force: bool = False) -> list[Path]:
         target.mkdir(parents=True, exist_ok=True)
         created.append(target)
 
-    researcher = root / "agents" / "researcher.md"
-    if force or not researcher.exists():
-        researcher.write_text(default_agent_markdown("researcher"), encoding="utf-8")
-        created.append(researcher)
+    for preloaded_agent in ["researcher", "hello"]:
+        agent_path = root / "agents" / f"{preloaded_agent}.md"
+        if force or not agent_path.exists():
+            agent_path.write_text(default_agent_markdown(preloaded_agent), encoding="utf-8")
+            created.append(agent_path)
 
     config = root / CONFIG_FILE
     if force or not config.exists():

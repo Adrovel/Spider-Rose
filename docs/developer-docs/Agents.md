@@ -63,10 +63,34 @@ In Phase 1, Markdown is editable in the sidebar and LangGraph/Tools are inspecti
 Every new Spider Rose project starts with:
 
 ```text
+agents/hello.md
 agents/researcher.md
 ```
 
+`hello` is a lightweight onboarding agent. It greets the user, explains Spider Rose briefly, and helps them take a first action.
+
 `researcher` is the default agent in Phase 1. It is responsible for turning a user task into a clear, structured starting point.
+
+Initial hello template:
+
+```md
+# Hello Agent
+
+Goal:
+Greet the user, explain Spider Rose briefly, and help them take their first action.
+
+Instructions:
+- Keep the response short and friendly.
+- Mention that agents are stored as Markdown files.
+- Suggest creating or editing an agent when the user is ready.
+- Avoid technical jargon unless the user asks for it.
+
+Tools:
+- none
+
+Output:
+hello_message
+```
 
 Initial researcher template:
 

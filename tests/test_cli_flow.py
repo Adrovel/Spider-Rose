@@ -20,6 +20,7 @@ def test_terminal_mvp_flow(tmp_path, monkeypatch):
     assert "Researcher Agent" in result.output
     assert "Search Nathan's LinkedIn" in result.output
     assert (tmp_path / "agents" / "researcher.md").exists()
+    assert (tmp_path / "agents" / "hello.md").exists()
 
 
 def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):

@@ -11,6 +11,7 @@ An agent is a reusable worker with a name, a goal, instructions, tools it may us
 The first version keeps the product intentionally small:
 
 - open Spider Rose from the terminal with `spiderrose`
+- use the built-in `hello` agent as an onboarding helper
 - use the built-in `researcher` agent immediately
 - create more agents when needed
 - edit agents in a simple black-themed browser UI
@@ -31,6 +32,7 @@ Visual app
   -> shows a simple workflow canvas
 
 Local files
+  -> agents/hello.md
   -> agents/researcher.md
   -> agents/<custom-agent>.md
   -> workflow-layout.json
@@ -42,6 +44,7 @@ Canvas blocks are visual references to agent files. If the same agent appears tw
 
 - local terminal shell
 - slash commands
+- preloaded `hello` agent
 - preloaded `researcher` agent
 - visual agent editor
 - editable Markdown agent files

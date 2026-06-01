@@ -34,8 +34,9 @@ When the user runs `spiderrose` in a new folder:
 
 1. Create `agents/`.
 2. Create `memory/`.
-3. Create `agents/researcher.md`.
-4. Create `spider-rose.toml` with `default_agent = "researcher"`.
+3. Create `agents/hello.md`.
+4. Create `agents/researcher.md`.
+5. Create `spider-rose.toml` with `default_agent = "researcher"`.
 5. Print the project path.
 6. Show the slash-command prompt.
 
@@ -62,6 +63,8 @@ agents/researcher.md
 ```
 
 New projects already include `researcher`, so user-created agents do not replace the default automatically unless the user changes the default in the visual editor.
+
+New projects also include `hello` as a lightweight onboarding agent.
 
 ## Run Flow
 
