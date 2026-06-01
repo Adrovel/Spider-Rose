@@ -38,6 +38,7 @@ pipx run git+https://github.com/Adrovel/Spider-Rose.git
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
+npm install
 ```
 
 ## CLI
@@ -65,7 +66,17 @@ spider-rose.toml
 
 ## Documentation
 
-Canonical developer docs live in [`developer-docs/`](./developer-docs/README.md).
+Canonical developer docs live in [`docs/developer-docs/`](./docs/developer-docs/README.md).
+Research notes live in [`docs/research-docs/`](./docs/research-docs/README.md).
+
+## Storybook
+
+Component stories live under `stories/`.
+
+```bash
+npm run storybook
+npm run build-storybook
+```
 
 ## Status
 

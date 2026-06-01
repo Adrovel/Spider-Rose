@@ -15,7 +15,7 @@ The first version keeps the product intentionally small:
 - create more agents when needed
 - edit agents in a simple black-themed browser UI
 - see exactly where each agent is stored on disk
-- move agents around on a workflow canvas as a planning surface
+- move, click, and duplicate agent blocks on a workflow canvas as a planning surface
 
 Spider Rose is not trying to be a large no-code automation platform. It is meant for developers, AI builders, and semi-technical users who want agent workflows that start as files and remain understandable.
 
@@ -36,6 +36,8 @@ Local files
   -> workflow-layout.json
 ```
 
+Canvas blocks are visual references to agent files. If the same agent appears twice on the canvas, Spider Rose still stores one Markdown file and two visual cards.
+
 ## What Exists Now
 
 - local terminal shell
@@ -44,6 +46,8 @@ Local files
 - visual agent editor
 - editable Markdown agent files
 - simple movable workflow canvas
+- clickable agent detail popup
+- visual duplicate blocks
 
 ## What Comes Later
 

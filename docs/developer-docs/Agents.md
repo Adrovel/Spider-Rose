@@ -39,6 +39,25 @@ workflow-layout.json
 
 Moving an agent card on the canvas does not change the agent Markdown file.
 
+The canvas stores visual cards, not duplicate agents. This means one Markdown agent can appear multiple times on the canvas as separate visual blocks:
+
+```json
+{
+  "cards": [
+    { "id": "researcher-1", "agent": "researcher", "x": 70, "y": 72 },
+    { "id": "researcher-2", "agent": "researcher", "x": 180, "y": 160 }
+  ]
+}
+```
+
+Clicking a card opens a popup with:
+
+- Markdown view
+- LangGraph view
+- Tools view
+
+In Phase 1, Markdown is editable in the sidebar and LangGraph/Tools are inspection placeholders.
+
 ## Preloaded Agents
 
 Every new Spider Rose project starts with:

@@ -21,6 +21,19 @@ Purpose: canonical implementation, planning, architecture, and team docs for Spi
 - [Agents](./Agents.md)
 - [Team](./Team.md)
 
+## Research Docs
+
+Research notes live one level up in [`../research-docs/`](../research-docs/README.md).
+
+## Component Docs
+
+Storybook is used for UI component review.
+
+```bash
+npm run storybook
+npm run build-storybook
+```
+
 ## Organization Rule
 
 Keep docs short and decision-oriented. If a doc starts mixing architecture, roadmap, task tracking, and research, split it before implementation continues.

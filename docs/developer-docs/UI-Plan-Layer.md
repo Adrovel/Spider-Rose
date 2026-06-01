@@ -72,9 +72,13 @@ Purpose for now:
 
 Current behavior:
 
+- cards can be clicked
+- cards can be duplicated visually without duplicating the underlying Markdown file
 - cards can be dragged
 - positions are saved locally
 - agents come from `agents/*.md`
+- each card shows the agent name and a short description
+- each card opens a detail popup with Markdown, LangGraph, and Tools views
 - canvas layout is stored in `workflow-layout.json`
 
 Not included yet:
@@ -106,3 +110,22 @@ What can I create, edit, move, or run right now?
 ```
 
 If a screen does not answer that question, it probably does not belong in Spider Rose yet.
+
+## Component Review Layer
+
+Storybook covers the visible UI pieces:
+
+- sidebar tabs
+- agent editor
+- infinite canvas
+- floating add control
+- zoom controls
+- agent picker
+- agent details popup
+- tools panel
+
+Run:
+
+```bash
+npm run storybook
+```

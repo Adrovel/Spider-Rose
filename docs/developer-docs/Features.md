@@ -14,6 +14,10 @@ Last updated: 2026-06-01
 | Create Markdown agent | `/new agent researcher` | implemented |
 | Run default agent | `/run Search Nathan's LinkedIn` | implemented |
 | Move agents on workflow canvas | `/workflow` in the visual app | implemented |
+| Click agent canvas blocks | visual app | implemented |
+| Duplicate visual agent blocks | visual app | implemented |
+| Inspect Markdown/LangGraph/Tools per block | visual app | implemented |
+| Component stories | `npm run storybook` | implemented |
 
 ## User Promise
 

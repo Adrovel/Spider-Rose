@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import json
+
 from typer.testing import CliRunner
 
 from spider_rose.cli import app
-from spider_rose.server import create_app
+from spider_rose.server import _read_workflow_layout, create_app
 
 
 runner = CliRunner()
@@ -35,5 +37,25 @@ def test_visual_routes_exist(tmp_path):
 
     assert "/" in routes
     assert "/workflow" in routes
+    assert "/tools" in routes
     assert "/api/agents" in routes
     assert "/api/workflow-layout" in routes
+
+
+def test_workflow_layout_supports_duplicate_agent_cards(tmp_path):
+    (tmp_path / "workflow-layout.json").write_text(
+        json.dumps(
+            {
+                "cards": [
+                    {"id": "researcher-1", "agent": "researcher", "x": 10, "y": 20},
+                    {"id": "researcher-2", "agent": "researcher", "x": 40, "y": 60},
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    layout = _read_workflow_layout(tmp_path)
+
+    assert len(layout["cards"]) == 2
+    assert layout["cards"][1]["id"] == "researcher-2"

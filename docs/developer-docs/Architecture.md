@@ -33,6 +33,7 @@ LangGraph Python and workflow definitions are archived for later phases. No thir
 project/
 ├── agents/
 ├── memory/
+├── workflow-layout.json
 └── spider-rose.toml
 ```
 
@@ -46,6 +47,22 @@ project/
 6. Result is printed to the terminal.
 7. `/visualise` serves an agent editor over the same local files.
 8. `/workflow` serves a movable canvas backed by `workflow-layout.json`.
+
+The visual server should run once per port. If `spiderrose visualise` sees an existing server on the target host/port, it opens that URL instead of starting a second server.
+
+## Canvas Data Model
+
+The canvas stores visual cards:
+
+```json
+{
+  "cards": [
+    { "id": "researcher-1", "agent": "researcher", "x": 70, "y": 72 }
+  ]
+}
+```
+
+Cards reference Markdown agents. Duplicating a card creates another visual reference to the same agent file; it does not duplicate `agents/*.md`.
 
 ## Production Readiness Rules
 
