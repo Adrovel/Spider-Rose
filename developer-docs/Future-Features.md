@@ -25,6 +25,14 @@ These features are intentionally archived outside Phase 1.
 - `spiderrose logs`
 - `spiderrose doctor`
 - `spiderrose inspect`
+- Codex/Claude-style terminal interface where the user can type natural tasks directly
+- slash commands for app actions such as `/visualise`, `/new agent`, `/agents`, `/settings`
+- terminal message history
+- multiline input composer
+- streaming agent responses
+- interrupt/cancel current run
+- command palette inside terminal
+- selectable agent context inside terminal
 - run history browser
 - structured run log export
 
@@ -50,4 +58,3 @@ These features are intentionally archived outside Phase 1.
 - distributed runtime
 - Kubernetes support
 - enterprise permissions
-

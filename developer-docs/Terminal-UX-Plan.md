@@ -97,6 +97,12 @@ Behavior:
 
 Archive these until workflows exist:
 
+- Codex/Claude-style chat terminal where plain text is treated as a task
+- slash commands remain reserved for app actions
+- multiline input composer
+- streaming output panels
+- keyboard shortcuts for cancel, clear, history, and agent switching
+- visible current agent/default project state
 - `/new workflow <name>`
 - `/connect <from> <to>`
 - `/run workflow <name> <task>`
