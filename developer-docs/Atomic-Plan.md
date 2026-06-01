@@ -34,6 +34,7 @@ Every task must produce a working artifact, test, or decision record.
 - [x] Add `spiderrose new agent`.
 - [x] Add `spiderrose run`.
 - [x] Add `spiderrose visualise`.
+- [x] Add plain `spiderrose` interactive shell with slash commands.
 - [x] Archive workflow/log/validate features for later.
 - [x] Add basic CLI flow test.
 - [ ] Run tests in a clean virtual environment.

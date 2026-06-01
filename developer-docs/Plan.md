@@ -10,9 +10,10 @@ Goal: make the smallest terminal and visual app loop work end-to-end.
 
 Exit criteria:
 
-- `spiderrose visualise` launches a local visual agent editor.
-- `spiderrose new agent` creates Markdown agents.
-- `spiderrose run "<task>"` runs the default agent.
+- `spiderrose` launches the terminal shell.
+- `/visualise` launches a local visual agent editor.
+- `/new agent <name>` creates Markdown agents.
+- `/run <task>` runs the default agent.
 - A friend can use one copyable command after the GitHub repo is pushed.
 
 ## Phase 1 - Production CLI Hardening

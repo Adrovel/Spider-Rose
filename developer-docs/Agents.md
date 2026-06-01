@@ -37,12 +37,12 @@ Agent names are converted into lowercase slugs:
 
 ## Phase 1 Execution
 
-`spiderrose run "<task>"` sends the task to the default agent.
+`/run <task>` sends the task to the default agent inside the `spiderrose` shell.
 
 If the first agent is created with:
 
-```bash
-spiderrose new agent researcher
+```text
+/new agent researcher
 ```
 
 then `researcher` becomes the default agent automatically.

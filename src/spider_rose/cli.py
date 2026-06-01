@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import shlex
 import webbrowser
 
 import typer
@@ -14,9 +15,11 @@ app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution
 console = Console()
 
 
-@app.callback()
-def main() -> None:
-    """Create agents visually or run the default agent from the terminal."""
+@app.callback(invoke_without_command=True)
+def main(ctx: typer.Context) -> None:
+    """Open Spider Rose when no subcommand is provided."""
+    if ctx.invoked_subcommand is None:
+        interactive_shell()
 
 
 @app.command("new")
@@ -46,6 +49,79 @@ def visualise(host: str = "127.0.0.1", port: int = 3000) -> None:
     console.print(f"[green]Starting Spider Rose[/green] {url}")
     webbrowser.open(url)
     uvicorn.run("spider_rose.server:create_app", host=host, port=port, factory=True)
+
+
+def interactive_shell() -> None:
+    """Run the slash-command terminal shell."""
+    _root()
+    console.print("[bold]Spider Rose[/bold]")
+    console.print("Use /visualise, /new agent <name>, /run <task>, /help, or /exit.")
+    while True:
+        try:
+            raw_command = input("spiderrose> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            console.print()
+            return
+
+        if not raw_command:
+            continue
+        if not raw_command.startswith("/"):
+            console.print("[yellow]Use slash commands. Try /help.[/yellow]")
+            continue
+        if raw_command in {"/exit", "/quit"}:
+            return
+        handle_slash_command(raw_command)
+
+
+def handle_slash_command(raw_command: str) -> None:
+    """Execute one slash command inside the interactive shell."""
+    if raw_command.startswith("/run "):
+        task = raw_command[len("/run ") :].strip()
+        if not task:
+            console.print("[red]Usage: /run <task>[/red]")
+            return
+        run(task)
+        return
+
+    try:
+        parts = shlex.split(raw_command[1:])
+    except ValueError as exc:
+        console.print(f"[red]{exc}[/red]")
+        return
+
+    if not parts:
+        return
+
+    command = parts[0]
+    args = parts[1:]
+
+    if command == "help":
+        console.print("Commands:")
+        console.print("  /visualise")
+        console.print("  /new agent <name>")
+        console.print("  /run <task>")
+        console.print("  /exit")
+        return
+
+    if command == "visualise":
+        visualise()
+        return
+
+    if command == "new":
+        if len(args) < 2 or args[0] != "agent":
+            console.print("[red]Usage: /new agent <name>[/red]")
+            return
+        new("agent", " ".join(args[1:]))
+        return
+
+    if command == "run":
+        if not args:
+            console.print("[red]Usage: /run <task>[/red]")
+            return
+        run(" ".join(args))
+        return
+
+    console.print(f"[red]Unknown command: /{command}[/red]")
 
 
 def _root() -> Path:

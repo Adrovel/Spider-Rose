@@ -8,18 +8,25 @@ Last updated: 2026-06-01
 
 | Feature | Command | Status |
 |---|---|---|
-| Launch visual agent editor | `spiderrose visualise` | implemented |
-| Create Markdown agent | `spiderrose new agent researcher` | implemented |
-| Run default agent | `spiderrose run "Search Nathan's LinkedIn"` | implemented |
+| Launch terminal shell | `spiderrose` | implemented |
+| Launch visual agent editor | `/visualise` | implemented |
+| Create Markdown agent | `/new agent researcher` | implemented |
+| Run default agent | `/run Search Nathan's LinkedIn` | implemented |
 
 ## User Promise
 
 A user should be able to stay entirely in the terminal:
 
 ```bash
-spiderrose visualise
-spiderrose new agent researcher
-spiderrose run "Search Nathan's LinkedIn"
+spiderrose
+```
+
+Inside Spider Rose:
+
+```text
+/visualise
+/new agent researcher
+/run Search Nathan's LinkedIn
 ```
 
 ## Definition Formats

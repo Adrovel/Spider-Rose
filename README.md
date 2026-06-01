@@ -6,12 +6,30 @@ Spider Rose lets users create Markdown agents visually, create agents from the t
 
 Phase 1 intentionally does not include workflow creation. That is archived for a later phase.
 
-## Copyable Launch Command
+## Install
 
-After the GitHub repo is pushed, friends should be able to try the app with:
+Linux/macOS:
 
 ```bash
-pipx run git+https://github.com/Adrovel/Spider-Rose.git visualise
+curl -fsSL https://raw.githubusercontent.com/Adrovel/Spider-Rose/main/install.sh | bash
+```
+
+Windows PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/Adrovel/Spider-Rose/main/install.ps1 | iex
+```
+
+Then run:
+
+```bash
+spiderrose
+```
+
+One-time run without installing:
+
+```bash
+pipx run git+https://github.com/Adrovel/Spider-Rose.git
 ```
 
 ## Install For Local Development
@@ -25,15 +43,22 @@ pip install -e ".[dev]"
 ## CLI
 
 ```bash
-spiderrose visualise
-spiderrose new agent researcher
-spiderrose run "Search Nathan's LinkedIn"
+spiderrose
+```
+
+Inside Spider Rose:
+
+```text
+/visualise
+/new agent researcher
+/run Search Nathan's LinkedIn
+/exit
 ```
 
 The legacy handover command name is also supported:
 
 ```bash
-agentforge visualise
+agentforge
 ```
 
 ## Project Files Created Automatically

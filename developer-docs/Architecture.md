@@ -38,12 +38,13 @@ project/
 
 ## Phase 1 Runtime Path
 
-1. CLI locates `spider-rose.toml`.
-2. If the config does not exist, CLI creates a local Spider Rose project.
-3. Agent registry loads the default Markdown agent from `agents/`.
-4. Runtime applies the terminal task to that agent.
-5. Result is printed to the terminal.
-6. `spiderrose visualise` serves an agent editor over the same local files.
+1. `spiderrose` opens the terminal shell.
+2. CLI locates `spider-rose.toml`.
+3. If the config does not exist, CLI creates a local Spider Rose project.
+4. `/run <task>` loads the default Markdown agent from `agents/`.
+5. Runtime applies the terminal task to that agent.
+6. Result is printed to the terminal.
+7. `/visualise` serves an agent editor over the same local files.
 
 ## Production Readiness Rules
 
