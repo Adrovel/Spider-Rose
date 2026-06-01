@@ -38,6 +38,48 @@ Answer:
 
 Pending Joel.
 
+### DC-002 - How Is LangGraph Different From LangChain?
+
+| Field | Value |
+|---|---|
+| Asked by | Mukthar |
+| Answer owner | Joel |
+| Status | Queued |
+| Date asked | 2026-06-01 |
+
+Question:
+
+How is LangGraph different from LangChain?
+
+Context:
+
+Spider Rose mentions LangGraph as a later runtime path. Before approving that direction, the team needs a short explanation of what LangGraph adds beyond LangChain and whether those differences matter for Spider Rose's visual flow model.
+
+Answer:
+
+Pending Joel.
+
+### DC-003 - How Is Spider Rose Better?
+
+| Field | Value |
+|---|---|
+| Asked by | Mukthar |
+| Answer owner | Joel |
+| Status | Queued |
+| Date asked | 2026-06-01 |
+
+Question:
+
+How is this product better?
+
+Context:
+
+Spider Rose needs a clear product argument against generic agent frameworks, no-code workflow tools, chat-first agent apps, and plain custom scripts. This answer should clarify why a local-first, terminal-first, Markdown-agent workspace is worth building.
+
+Answer:
+
+Pending Joel.
+
 ## Answered
 
 No answered design questions yet.

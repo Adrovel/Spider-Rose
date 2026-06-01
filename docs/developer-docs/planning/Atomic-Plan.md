@@ -169,12 +169,18 @@ Joel:
 
 - [ ] Decide when real workflow execution is worth adding.
 - [ ] Decide whether LangGraph is still the right runtime target.
+- [ ] Explore raw Python orchestration as the baseline runtime option.
+- [ ] Explore OpenAI Agents SDK for agent handoffs, tools, tracing, and fit with Markdown agents.
+- [ ] Explore Pydantic AI for typed agents, output contracts, and FastAPI-style ergonomics.
+- [ ] Answer how LangGraph is different from LangChain.
+- [ ] Answer how Spider Rose is better than generic agent/workflow tools.
 - [ ] Decide MCP boundary after core app stabilizes.
 - [ ] Decide local RAG boundary after file/runs model stabilizes.
 
 Mukthar:
 
 - [ ] Add LangGraph dependency gate only after approval.
+- [ ] Avoid adding OpenAI Agents SDK, Pydantic AI, or LangGraph dependencies until Joel chooses a runtime direction.
 - [ ] Compile workflow model into LangGraph graph only after visual model stabilizes.
 - [ ] Add runtime tests only after execution semantics are approved.
 - [ ] Keep RAG, MCP, logs, validation, and canvas notes out of active scope until reopened.

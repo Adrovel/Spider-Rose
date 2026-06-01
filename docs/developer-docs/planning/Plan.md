@@ -207,6 +207,7 @@ Goal: execute workflows through LangGraph while keeping Markdown agents simple.
 Work:
 
 - real workflow execution
+- compare raw Python orchestration, OpenAI Agents SDK, Pydantic AI, and LangGraph
 - compile YAML workflow into LangGraph `StateGraph`
 - support LangGraph Python workflow discovery
 - document how LangGraph users opt in
@@ -214,3 +215,16 @@ Work:
 - consider local RAG after runs and file access are mature
 
 Estimate: 50-80h.
+
+Joel lane:
+
+- explore raw Python orchestration as the baseline runtime
+- explore OpenAI Agents SDK for handoffs, tools, and tracing
+- explore Pydantic AI for typed agents and structured output
+- explain how LangGraph differs from LangChain before approving LangGraph
+- define how Spider Rose is better than generic agent/workflow tools
+
+Mukthar lane:
+
+- wait for Joel's runtime decision before adding runtime dependencies
+- prepare small comparison spikes only after the exploration questions are answered
