@@ -37,7 +37,7 @@ Every task must produce a working artifact, test, or decision record.
 - [x] Archive workflow/log/validate features for later.
 - [x] Add basic CLI flow test.
 - [ ] Run tests in a clean virtual environment.
-- [ ] Create GitHub repository under Adrovel.
+- [x] Create GitHub repository under Adrovel.
 - [ ] Push initial repository to GitHub after Joel approves push.
 
 ## Phase 1 Tasks
