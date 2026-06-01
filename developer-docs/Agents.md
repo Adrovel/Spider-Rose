@@ -31,6 +31,14 @@ spider-rose.toml
 
 The visual app and terminal shell edit the same Markdown files.
 
+Workflow canvas positions are stored separately:
+
+```text
+workflow-layout.json
+```
+
+Moving an agent card on the canvas does not change the agent Markdown file.
+
 ## Preloaded Agents
 
 Every new Spider Rose project starts with:

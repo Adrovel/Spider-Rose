@@ -10,3 +10,4 @@ build/
 agents/
 memory/
 spider-rose.toml
+workflow-layout.json

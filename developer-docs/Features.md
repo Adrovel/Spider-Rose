@@ -13,6 +13,7 @@ Last updated: 2026-06-01
 | Preload researcher agent | automatic on first run | implemented |
 | Create Markdown agent | `/new agent researcher` | implemented |
 | Run default agent | `/run Search Nathan's LinkedIn` | implemented |
+| Move agents on workflow canvas | `/workflow` in the visual app | implemented |
 
 ## User Promise
 

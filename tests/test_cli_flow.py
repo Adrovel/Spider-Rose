@@ -3,6 +3,7 @@ from __future__ import annotations
 from typer.testing import CliRunner
 
 from spider_rose.cli import app
+from spider_rose.server import create_app
 
 
 runner = CliRunner()
@@ -27,3 +28,12 @@ def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
     assert "/visualise" in result.output
     assert "/new agent <name>" in result.output
     assert "/run <task>" in result.output
+
+
+def test_visual_routes_exist(tmp_path):
+    routes = {route.path for route in create_app(tmp_path).routes}
+
+    assert "/" in routes
+    assert "/workflow" in routes
+    assert "/api/agents" in routes
+    assert "/api/workflow-layout" in routes

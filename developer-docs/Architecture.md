@@ -45,6 +45,7 @@ project/
 5. Runtime applies the terminal task to that agent.
 6. Result is printed to the terminal.
 7. `/visualise` serves an agent editor over the same local files.
+8. `/workflow` serves a movable canvas backed by `workflow-layout.json`.
 
 ## Production Readiness Rules
 

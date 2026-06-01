@@ -38,6 +38,11 @@ Work:
 - default workflow selection
 - terminal workflow execution
 
+Current bridge:
+
+- `/workflow` now exists as a movable planning canvas.
+- Cards can be positioned before workflow edges/execution are introduced.
+
 ## Phase 3 - LangGraph Runtime
 
 Goal: execute workflows through LangGraph while keeping Markdown agents simple.
