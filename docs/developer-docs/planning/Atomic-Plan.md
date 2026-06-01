@@ -130,27 +130,35 @@ Mukthar:
 
 ## Phase 4 Tasks
 
-Target: make canvas planning useful before real workflow execution. Estimate: 35-50h.
+Target: make reusable agent creation useful across projects. Estimate: 35-50h.
 
 Joel:
 
+- [ ] Define custom agent library scope.
+- [ ] Decide whether library storage is project-local, user-global, or both.
+- [ ] Decide library naming rules.
+- [ ] Decide first library categories.
 - [ ] Write built-in template content for Researcher.
 - [ ] Write built-in template content for Planner.
 - [ ] Write built-in template content for Coder.
 - [ ] Write built-in template content for Reviewer.
 - [ ] Write built-in template content for Summarizer.
 - [ ] Write built-in template content for Debugger.
-- [ ] Review workflow preview display.
+- [ ] Review custom agent library UX.
 - [ ] Trigger 40% marketing checklist if not already started.
 
 Mukthar:
 
-- [ ] Add Run button to each agent card.
-- [ ] Prompt for input when running from a card.
-- [ ] Display single-agent output in terminal or browser panel.
-- [ ] Add simple workflow preview text, for example `researcher -> planner -> writer`.
+- [ ] Add local `agent-library/` storage.
+- [ ] Add command to list library agents.
+- [ ] Add command to save an existing agent into the library.
+- [ ] Add `/new agent <name> --from-library <library-agent>`.
+- [ ] Add visual library browser.
+- [ ] Add create-from-library flow in the visual app.
 - [ ] Add template registry.
 - [ ] Add `/new agent <name> --template <template>`.
+- [ ] Keep library entries as Markdown files.
+- [ ] Add tests for library agent creation.
 - [ ] Add tests for template agent creation.
 
 ## Phase 5 Tasks

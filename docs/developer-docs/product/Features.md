@@ -28,6 +28,7 @@ Spider Rose stays local-first and terminal-first. The current priority is making
 |---|---|---|
 | Terminal UI | `spiderrose` shell | required next |
 | Connector edges between agent cards | `/workflow` canvas | required next |
+| Custom agent library | terminal and visual app | planned after core editor |
 
 ## Terminal UI Requirement
 
@@ -67,6 +68,38 @@ Deferred behavior:
 - workflow validation
 - terminal workflow execution
 - LangGraph compilation
+
+## Custom Agent Library Requirement
+
+The agent library should be a local-first collection of reusable Markdown agents.
+
+Required behavior:
+
+- save a current agent into the library
+- create a project agent from a library entry
+- browse library agents from the visual app
+- list library agents from the terminal
+- keep library entries as readable Markdown files
+- support user-created library entries, not only built-in templates
+
+Possible commands:
+
+```text
+/library
+/library add researcher
+/new agent review-bot --from-library reviewer
+```
+
+Suggested local shape:
+
+```text
+agent-library/
+  researcher.md
+  planner.md
+  reviewer.md
+```
+
+The library is not a marketplace. It should not require accounts, publishing, ratings, or remote sync in the current plan.
 
 ## Not Active Now
 

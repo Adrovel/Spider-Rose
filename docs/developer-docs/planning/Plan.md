@@ -55,7 +55,7 @@ Marketing reminder at 40%:
 | 1 | Terminal UI | 40-55h | 1-1.5 weeks | 25% |
 | 2 | Visual flow edges | 30-45h | 1 week | 20% |
 | 3 | Agent editing and defaults | 25-35h | 1 week | 15% |
-| 4 | Canvas run preview and templates | 35-50h | 1-1.5 weeks | 15% |
+| 4 | Custom agent library and templates | 35-50h | 1-1.5 weeks | 15% |
 | 5 | Later runtime path | 50-80h | 1.5-2 weeks | 10% |
 
 40% completion lands after Phase 1 is complete and Phase 2 has started or after Phase 2 is partially complete.
@@ -170,29 +170,34 @@ Mukthar lane:
 - implement default command and selector
 - add focused tests
 
-## Phase 4 - Canvas Run Preview and Templates
+## Phase 4 - Custom Agent Library and Templates
 
-Goal: make the visual app useful before real workflow execution exists.
+Goal: make agents reusable across projects before real workflow execution exists.
 
 Work:
 
-- run a single agent from a canvas card
-- show output in browser panel or terminal output block
-- simple workflow preview like `researcher -> planner -> writer`
+- local custom agent library
+- save project agents into the library
+- create project agents from library entries
+- browse library entries in the visual app
+- list library entries in the terminal
 - built-in templates for Researcher, Planner, Coder, Reviewer, Summarizer, Debugger
 - `/new agent <name> --template <template>` command
+- `/new agent <name> --from-library <library-agent>` command
 
 Estimate: 35-50h.
 
 Joel lane:
 
+- define library boundaries and naming rules
 - define template content
-- review preview semantics and demo story
+- review library UX and demo story
 
 Mukthar lane:
 
-- implement card run button
-- implement workflow preview
+- implement local library storage
+- implement library list/create/import commands
+- implement visual library browser
 - implement templates and command parsing
 
 ## Phase 5 - Later Runtime Path

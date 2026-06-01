@@ -21,6 +21,7 @@ Spider Rose lets a developer:
 - open a workflow planning canvas with `/workflow`
 - move, click, and duplicate visual cards without duplicating the underlying agent file
 - connect agent cards visually so a user can see intended flow before execution exists
+- reuse custom agents from a local agent library once the core editor is stable
 
 Agents are plain files under `agents/`. The generated project also includes `memory/`, `spider-rose.toml`, and a `workflow-layout.json` file once canvas positions are saved.
 
@@ -41,6 +42,7 @@ Local project files
   -> agents/hello.md
   -> agents/researcher.md
   -> agents/<custom-agent>.md
+  -> agent-library/
   -> memory/
   -> spider-rose.toml
   -> workflow-layout.json
@@ -67,6 +69,7 @@ Canvas cards are visual references to Markdown agents. Duplicating a card create
 - terminal UI with history, context, and a stable input area
 - directional connector edges between agent cards
 - persisted edge data alongside canvas card positions
+- custom agent library for reusable Markdown agents
 
 ## What Is Deliberately Later
 
