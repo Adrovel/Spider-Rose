@@ -14,6 +14,18 @@ Because the team is small, fast merging is allowed. Joel and Mukthar may instant
 
 Still create pull requests for every code or docs change so history stays reviewable.
 
+## Direction Conflict Rule
+
+If Joel asks for approach X and Mukthar believes X does not make sense but approach Y does, Mukthar should build both paths instead of blocking the work:
+
+- build Joel's requested approach X on one branch
+- build Mukthar's proposed approach Y on a separate branch
+- keep both branches small enough to compare directly
+- document the tradeoff in the pull request descriptions
+- let Joel make the final product decision after both options are visible
+
+Do not replace X with Y silently. The point is to preserve product direction while still testing a technically better alternative.
+
 ## Fetching
 
 At the start of every Codex session, run:
