@@ -25,6 +25,10 @@ Purpose: canonical implementation, planning, architecture, and team docs for Spi
 
 Research notes live one level up in [`../research-docs/`](../research-docs/README.md).
 
+## Engineering Standards
+
+- [GitHub Workflow Standards](../engineering-standards/GitHub-Workflow.md)
+
 ## Component Docs
 
 Storybook is used for UI component review.
