@@ -10,6 +10,7 @@ Last updated: 2026-06-01
 |---|---|---|
 | Launch terminal shell | `spiderrose` | implemented |
 | Launch visual agent editor | `/visualise` | implemented |
+| Preload researcher agent | automatic on first run | implemented |
 | Create Markdown agent | `/new agent researcher` | implemented |
 | Run default agent | `/run Search Nathan's LinkedIn` | implemented |
 

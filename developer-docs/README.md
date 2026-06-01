@@ -13,6 +13,7 @@ Purpose: canonical implementation, planning, architecture, and team docs for Spi
 - [Features](./Features.md)
 - [Plan](./Plan.md)
 - [Atomic Plan](./Atomic-Plan.md)
+- [Terminal UX Plan](./Terminal-UX-Plan.md)
 - [Future Features](./Future-Features.md)
 - [Agents](./Agents.md)
 - [Team](./Team.md)

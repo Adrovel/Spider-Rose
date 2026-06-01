@@ -75,25 +75,30 @@ HTML = """<!doctype html>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Spider Rose</title>
   <style>
-    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { margin: 0; background: #f7f2ed; color: #241c18; }
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; background: #080808; color: #f5f5f5; }
     button, input, textarea { font: inherit; }
     .shell { min-height: 100vh; display: grid; grid-template-columns: 300px 1fr; }
-    aside { border-right: 1px solid #dccfc5; padding: 18px; background: #fffaf5; }
+    aside { border-right: 1px solid #2a2a2a; padding: 18px; background: #111111; }
     main { padding: 22px; }
     h1 { font-size: 22px; margin: 0 0 4px; }
     h2 { font-size: 15px; margin: 24px 0 10px; }
-    .muted { color: #756760; font-size: 13px; }
+    .muted { color: #a3a3a3; font-size: 13px; }
     .row { display: flex; gap: 8px; }
-    input { width: 100%; box-sizing: border-box; border: 1px solid #cdbfb5; border-radius: 6px; padding: 9px 10px; background: #fff; }
-    button { border: 1px solid #2f2925; border-radius: 6px; padding: 9px 11px; background: #2f2925; color: white; cursor: pointer; white-space: nowrap; }
-    button.secondary { background: #fff; color: #2f2925; border-color: #cdbfb5; }
-    .agent { width: 100%; text-align: left; margin: 6px 0; background: #fff; color: #2f2925; border-color: #e1d6cf; }
-    .agent.active { border-color: #b13f36; box-shadow: inset 3px 0 0 #b13f36; }
-    textarea { width: 100%; min-height: calc(100vh - 175px); box-sizing: border-box; resize: vertical; border: 1px solid #cdbfb5; border-radius: 8px; padding: 14px; background: #fff; line-height: 1.5; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; }
+    input { width: 100%; box-sizing: border-box; border: 1px solid #3a3a3a; border-radius: 6px; padding: 9px 10px; background: #0f0f0f; color: #f5f5f5; outline: none; }
+    input:focus { border-color: #777777; }
+    button { border: 1px solid #f5f5f5; border-radius: 6px; padding: 9px 11px; background: #f5f5f5; color: #080808; cursor: pointer; white-space: nowrap; }
+    button:hover { background: #e5e5e5; }
+    button.secondary { background: #151515; color: #e5e5e5; border-color: #3a3a3a; }
+    button.secondary:hover { border-color: #5a5a5a; color: #ffffff; background: #1b1b1b; }
+    .agent { width: 100%; text-align: left; margin: 6px 0; background: #151515; color: #e5e5e5; border-color: #2a2a2a; }
+    .agent:hover { border-color: #3a3a3a; background: #1b1b1b; }
+    .agent.active { border-color: #bdbdbd; box-shadow: inset 3px 0 0 #f5f5f5; color: #ffffff; }
+    textarea { width: 100%; min-height: calc(100vh - 175px); box-sizing: border-box; resize: vertical; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px; background: #0f0f0f; color: #f5f5f5; line-height: 1.5; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 14px; outline: none; }
+    textarea:focus { border-color: #5a5a5a; }
     .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-    .status { min-height: 20px; color: #756760; font-size: 13px; }
-    @media (max-width: 760px) { .shell { grid-template-columns: 1fr; } aside { border-right: 0; border-bottom: 1px solid #dccfc5; } textarea { min-height: 55vh; } }
+    .status { min-height: 20px; color: #a3a3a3; font-size: 13px; }
+    @media (max-width: 760px) { .shell { grid-template-columns: 1fr; } aside { border-right: 0; border-bottom: 1px solid #2a2a2a; } textarea { min-height: 55vh; } }
   </style>
 </head>
 <body>
@@ -113,7 +118,7 @@ HTML = """<!doctype html>
       <div class="toolbar">
         <div>
           <h1 id="title">Select an agent</h1>
-          <div class="muted" id="path"></div>
+          <div class="muted" id="path">Agents are stored as Markdown files in this project.</div>
         </div>
         <div class="row">
           <button class="secondary" id="defaultBtn">Set Default</button>
@@ -145,7 +150,7 @@ HTML = """<!doctype html>
       current = name;
       const agent = agents.find((item) => item.name === name);
       $('title').textContent = agent ? agent.name : 'Select an agent';
-      $('path').textContent = agent ? agent.path : '';
+      $('path').textContent = agent ? `Stored at ${agent.path}` : 'Agents are stored as Markdown files in this project.';
       $('editor').value = agent ? agent.markdown : '';
       $('status').textContent = '';
       renderAgents();

@@ -34,6 +34,25 @@ def title_from_slug(slug: str) -> str:
 def default_agent_markdown(name: str) -> str:
     slug = slugify_agent_name(name)
     title = title_from_slug(slug)
+    if slug == "researcher":
+        return """# Researcher Agent
+
+Goal:
+Find accurate information and turn a user task into a clear starting point.
+
+Instructions:
+- Identify what the user is asking for.
+- Pull out names, entities, platforms, and constraints.
+- Say what information is known and what is still missing.
+- Return concise, structured output.
+
+Tools:
+- web_search
+
+Output:
+research_summary
+"""
+
     return f"""# {title} Agent
 
 Goal:
@@ -106,4 +125,3 @@ def _parse_bullets(lines: list[str]) -> list[str]:
 
 def _parse_block(lines: list[str]) -> str:
     return "\n".join(line.strip() for line in lines).strip()
-

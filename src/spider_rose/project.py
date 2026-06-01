@@ -38,12 +38,17 @@ def init_project(path: Path, force: bool = False) -> list[Path]:
         target.mkdir(parents=True, exist_ok=True)
         created.append(target)
 
+    researcher = root / "agents" / "researcher.md"
+    if force or not researcher.exists():
+        researcher.write_text(default_agent_markdown("researcher"), encoding="utf-8")
+        created.append(researcher)
+
     config = root / CONFIG_FILE
     if force or not config.exists():
         config.write_text(
             """[project]
 name = "Spider Rose Workflow"
-default_agent = ""
+default_agent = "researcher"
 
 [runtime]
 mode = "local"
