@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import shlex
+import socket
 import webbrowser
 
 import typer
@@ -46,6 +47,10 @@ def visualise(host: str = "127.0.0.1", port: int = 3000) -> None:
     import uvicorn
 
     url = f"http://{host}:{port}"
+    if _server_is_running(host, port):
+        console.print(f"[yellow]Spider Rose is already running[/yellow] {url}")
+        webbrowser.open(url)
+        return
     console.print(f"[green]Starting Spider Rose[/green] {url}")
     webbrowser.open(url)
     uvicorn.run("spider_rose.server:create_app", host=host, port=port, factory=True)
@@ -130,6 +135,14 @@ def _root() -> Path:
     except ProjectError as exc:
         console.print(f"[red]{exc}[/red]")
         raise typer.Exit(1) from exc
+
+
+def _server_is_running(host: str, port: int) -> bool:
+    try:
+        with socket.create_connection((host, port), timeout=0.25):
+            return True
+    except OSError:
+        return False
 
 
 def _entrypoint() -> None:

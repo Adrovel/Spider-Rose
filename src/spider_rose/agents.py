@@ -52,6 +52,24 @@ Tools:
 Output:
 research_summary
 """
+    if slug == "hello":
+        return """# Hello Agent
+
+Goal:
+Greet the user, explain Spider Rose briefly, and help them take their first action.
+
+Instructions:
+- Keep the response short and friendly.
+- Mention that agents are stored as Markdown files.
+- Suggest creating or editing an agent when the user is ready.
+- Avoid technical jargon unless the user asks for it.
+
+Tools:
+- none
+
+Output:
+hello_message
+"""
 
     return f"""# {title} Agent
 

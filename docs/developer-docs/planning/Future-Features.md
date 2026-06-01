@@ -6,12 +6,16 @@ Last updated: 2026-06-01
 
 These features are intentionally archived outside Phase 1.
 
+## Required Soon, Not Future Archive
+
+- terminal UI for `spiderrose`
+- connector edges between agent cards
+- persisted visual flow data
+
 ## Workflow Features
 
 - create workflows
 - edit workflows
-- connect agents
-- workflow canvas edges
 - `spiderrose new workflow`
 - `spiderrose workflow add`
 - `spiderrose workflow connect`
@@ -25,9 +29,6 @@ These features are intentionally archived outside Phase 1.
 - `spiderrose logs`
 - `spiderrose doctor`
 - `spiderrose inspect`
-- Codex/Claude-style terminal interface where the user can type natural tasks directly
-- slash commands for app actions such as `/visualise`, `/new agent`, `/agents`, `/settings`
-- terminal message history
 - multiline input composer
 - streaming agent responses
 - interrupt/cancel current run

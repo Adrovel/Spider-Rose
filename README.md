@@ -2,9 +2,9 @@
 
 Terminal-first agent creation and execution for developers.
 
-Spider Rose lets users create Markdown agents visually, create agents from the terminal, and run the default agent from the terminal.
+Spider Rose lets users create Markdown agents visually, create agents from the terminal, run the default agent from the terminal, and arrange agent cards on a visual canvas.
 
-Phase 1 intentionally does not include workflow creation. That is archived for a later phase.
+The next product requirements are a stronger terminal UI and connector edges between agent cards. Workflow execution is archived for a later phase.
 
 ## Install
 
@@ -38,6 +38,7 @@ pipx run git+https://github.com/Adrovel/Spider-Rose.git
 python -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
+npm install
 ```
 
 ## CLI
@@ -65,8 +66,18 @@ spider-rose.toml
 
 ## Documentation
 
-Canonical developer docs live in [`developer-docs/`](./developer-docs/README.md).
+Canonical developer docs live in [`docs/developer-docs/`](./docs/developer-docs/README.md), grouped by product, implementation, planning, and team.
+Research notes live in [`docs/research-docs/`](./docs/research-docs/README.md).
+
+## Storybook
+
+Component stories live under `stories/`.
+
+```bash
+npm run storybook
+npm run build-storybook
+```
 
 ## Status
 
-The MVP is intentionally local-first and terminal-first. The runtime currently executes one default Markdown-defined agent deterministically. Workflows, logs, validation, LangGraph execution, and multi-agent handoffs are future features.
+The MVP is intentionally local-first and terminal-first. The runtime currently executes one default Markdown-defined agent deterministically. Terminal UI polish and visual flow edges are required next; logs, validation, LangGraph execution, workflow execution, and multi-agent handoffs are future features.

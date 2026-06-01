@@ -1,19 +1,21 @@
 # Spider Rose Architecture
 
 Version: 0.1.0  
-Status: Phase 1 scope locked  
+Status: Working architecture  
 Last updated: 2026-06-01
 
-Spider Rose is a local-first, terminal-native agent runner with a visual agent editor.
+Spider Rose is a local-first, terminal-native agent workspace with a visual agent editor and workflow planning canvas.
 
 ## System Summary
 
 ```text
 CLI
+  -> Terminal UI
   -> Project File Manager
   -> Agent Registry
   -> Single-Agent Runtime
   -> Local Visualization Server
+  -> Canvas Layout Store
   -> Markdown Agent Files
 ```
 
@@ -33,6 +35,7 @@ LangGraph Python and workflow definitions are archived for later phases. No thir
 project/
 ├── agents/
 ├── memory/
+├── workflow-layout.json
 └── spider-rose.toml
 ```
 
@@ -45,6 +48,28 @@ project/
 5. Runtime applies the terminal task to that agent.
 6. Result is printed to the terminal.
 7. `/visualise` serves an agent editor over the same local files.
+8. `/workflow` serves a movable canvas backed by `workflow-layout.json`.
+9. The canvas should store visual connector edges that show planned flow between cards.
+
+The visual server should run once per port. If `spiderrose visualise` sees an existing server on the target host/port, it opens that URL instead of starting a second server.
+
+## Canvas Data Model
+
+The canvas stores visual cards now, and should also store visual flow edges:
+
+```json
+{
+  "cards": [
+    { "id": "researcher-1", "agent": "researcher", "x": 70, "y": 72 }
+  ],
+  "edges": [
+    { "id": "edge-1", "from": "researcher-1", "to": "hello-1" }
+  ]
+}
+```
+
+Cards reference Markdown agents. Duplicating a card creates another visual reference to the same agent file; it does not duplicate `agents/*.md`.
+Edges reference canvas card IDs. They show intended flow only until workflow execution is implemented.
 
 ## Production Readiness Rules
 

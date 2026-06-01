@@ -31,15 +31,66 @@ spider-rose.toml
 
 The visual app and terminal shell edit the same Markdown files.
 
+Workflow canvas positions are stored separately:
+
+```text
+workflow-layout.json
+```
+
+Moving an agent card on the canvas does not change the agent Markdown file.
+
+The canvas stores visual cards, not duplicate agents. This means one Markdown agent can appear multiple times on the canvas as separate visual blocks:
+
+```json
+{
+  "cards": [
+    { "id": "researcher-1", "agent": "researcher", "x": 70, "y": 72 },
+    { "id": "researcher-2", "agent": "researcher", "x": 180, "y": 160 }
+  ]
+}
+```
+
+Clicking a card opens a popup with:
+
+- Markdown view
+- LangGraph view
+- Tools view
+
+In Phase 1, Markdown is editable in the sidebar and LangGraph/Tools are inspection placeholders.
+
 ## Preloaded Agents
 
 Every new Spider Rose project starts with:
 
 ```text
+agents/hello.md
 agents/researcher.md
 ```
 
+`hello` is a lightweight onboarding agent. It greets the user, explains Spider Rose briefly, and helps them take a first action.
+
 `researcher` is the default agent in Phase 1. It is responsible for turning a user task into a clear, structured starting point.
+
+Initial hello template:
+
+```md
+# Hello Agent
+
+Goal:
+Greet the user, explain Spider Rose briefly, and help them take their first action.
+
+Instructions:
+- Keep the response short and friendly.
+- Mention that agents are stored as Markdown files.
+- Suggest creating or editing an agent when the user is ready.
+- Avoid technical jargon unless the user asks for it.
+
+Tools:
+- none
+
+Output:
+hello_message
+```
 
 Initial researcher template:
 

@@ -7,6 +7,9 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+node_modules/
+storybook-static/
 agents/
 memory/
 spider-rose.toml
+workflow-layout.json
