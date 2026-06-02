@@ -22,6 +22,7 @@ def test_terminal_mvp_flow(tmp_path, monkeypatch):
     assert "Project" in result.output
     assert "Default" in result.output
     assert "INPUT" in result.output
+    assert "Type a slash command" in result.output
     assert "🕷" in result.output
     assert "spiderrose >" not in result.output
     assert "Run" in result.output
@@ -44,13 +45,33 @@ def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
     assert "/new agent <name>" in result.output
     assert "/run <task>" in result.output
     assert "/recent" in result.output
+    assert "/menu" in result.output
     assert "/clear" in result.output
     assert "INPUT" in result.output
+    assert "Type a slash command" in result.output
     assert "🕷" in result.output
     assert "spiderrose >" not in result.output
     assert "Recent" not in result.output
     assert "Showed command list." not in result.output
     assert "Use /visualise, /new agent <name>, /run <task>, /help, or /exit." not in result.output
+
+
+def test_menu_shows_registered_slash_commands(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("SPIDER_ROSE_PROJECT_ROOT", str(tmp_path))
+
+    result = runner.invoke(app, input="/menu\n/exit\n")
+
+    assert result.exit_code == 0
+    assert "Slash Command Menu" in result.output
+    assert "/run <task>" in result.output
+    assert "/recent" in result.output
+    assert "/menu" in result.output
+    assert "/new agent <name>" in result.output
+    assert "/visualise" in result.output
+    assert "/clear" in result.output
+    assert "/help" in result.output
+    assert "/exit" in result.output
 
 
 def test_terminal_history_tracks_current_session(tmp_path, monkeypatch):
