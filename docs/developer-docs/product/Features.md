@@ -38,7 +38,7 @@ Implemented behavior:
 
 - project header
 - default-agent context
-- grey fixed-style input bar
+- three-line grey input composer
 - clear command responses
 - panel-rendered run output
 - background in-session history for task context
