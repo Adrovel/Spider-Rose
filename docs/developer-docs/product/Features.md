@@ -38,11 +38,12 @@ Implemented behavior:
 
 - project header
 - default-agent context
-- command input line
+- grey fixed-style input bar
 - clear command responses
 - panel-rendered run output
 - background in-session history for task context
 - `/recent` command for showing terminal history
+- `/menu` command for showing the shared slash command menu
 - slash command support
 - `/clear` command
 

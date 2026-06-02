@@ -18,7 +18,7 @@ from spider_rose.runtime import run_default_agent
 
 app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution.")
 console = Console()
-INPUT_PROMPT = "[bold black on white] INPUT [/bold black on white] [bold white]🕷[/bold white] [bold green]›[/bold green] "
+INPUT_PROMPT = "[bold white on grey23] INPUT  🕷 [/bold white on grey23][white on grey11] Type a slash command [/white on grey11] [bold green]›[/bold green] "
 HISTORY_LIMIT = 6
 
 
@@ -27,6 +27,25 @@ class ShellMessage:
     role: str
     title: str
     body: str
+
+
+@dataclass(frozen=True)
+class SlashCommand:
+    usage: str
+    description: str
+    featured: bool = False
+
+
+SLASH_COMMANDS: tuple[SlashCommand, ...] = (
+    SlashCommand("/run <task>", "Run the default Markdown agent.", featured=True),
+    SlashCommand("/recent", "Show the current terminal session history.", featured=True),
+    SlashCommand("/menu", "Open the slash command menu.", featured=True),
+    SlashCommand("/new agent <name>", "Create a local Markdown agent."),
+    SlashCommand("/visualise", "Open the local visual editor."),
+    SlashCommand("/clear", "Clear the terminal and redraw the shell header."),
+    SlashCommand("/help", "Show command help."),
+    SlashCommand("/exit", "Close Spider Rose."),
+)
 
 
 @app.callback(invoke_without_command=True)
@@ -125,8 +144,12 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
     args = parts[1:]
 
     if command == "help":
-        _render_help()
+        _render_command_menu("Commands")
         return ShellMessage("System", "Help", "Showed command list.")
+
+    if command == "menu":
+        _render_command_menu("Slash Command Menu")
+        return ShellMessage("System", "Menu", "Showed slash command menu.")
 
     if command == "recent":
         _render_history(_history_before_current_command(history, raw_command))
@@ -178,21 +201,21 @@ def _render_shell_header(root: Path) -> None:
     body.add_column(style="white")
     body.add_row("Project", str(root))
     body.add_row("Default", default_agent)
-    body.add_row("Try", "/run <task>  /recent  /new agent <name>  /visualise  /help")
+    body.add_row("Try", _featured_command_text())
     console.print(Panel(body, title=title, border_style="white", padding=(1, 2)))
 
 
-def _render_help() -> None:
+def _render_command_menu(title: str) -> None:
     table = Table(show_header=False, box=None, padding=(0, 2))
     table.add_column("Command", style="bold white", no_wrap=True)
     table.add_column("Description", style="dim")
-    table.add_row("/run <task>", "Run the default Markdown agent.")
-    table.add_row("/recent", "Show the current terminal session history.")
-    table.add_row("/new agent <name>", "Create a local Markdown agent.")
-    table.add_row("/visualise", "Open the local visual editor.")
-    table.add_row("/clear", "Clear the terminal and redraw the shell header.")
-    table.add_row("/exit", "Close Spider Rose.")
-    console.print(Panel(table, title="Commands", border_style="white", padding=(1, 2)))
+    for command in SLASH_COMMANDS:
+        table.add_row(command.usage, command.description)
+    console.print(Panel(table, title=title, border_style="white", padding=(1, 2)))
+
+
+def _featured_command_text() -> str:
+    return "  ".join(command.usage for command in SLASH_COMMANDS if command.featured)
 
 
 def _render_history(history: list[ShellMessage]) -> None:
