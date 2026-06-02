@@ -18,7 +18,13 @@ from spider_rose.runtime import run_default_agent
 
 app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution.")
 console = Console()
-INPUT_PROMPT = "[bold white on grey23] INPUT  🕷 [/bold white on grey23][white on grey11] Type a slash command [/white on grey11] [bold green]›[/bold green] "
+INPUT_PROMPT = "\n".join(
+    [
+        "[white on grey11]                                                                              [/white on grey11]",
+        "[white on grey11]  Terminal input - slash commands are routed through Spider Rose memory.       [/white on grey11]",
+        "[bold white on grey23] INPUT  🕷 [/bold white on grey23][white on grey11] Type a slash command [/white on grey11] [bold green]›[/bold green] ",
+    ]
+)
 HISTORY_LIMIT = 6
 
 

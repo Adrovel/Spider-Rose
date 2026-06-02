@@ -38,7 +38,7 @@ The terminal has the first stable app shape:
 - header with current project path
 - default agent indicator
 - command response area
-- grey fixed-style `INPUT` bar with a terminal-native spider glyph
+- three-line grey `INPUT` composer with a terminal-native spider glyph
 - background in-session history
 - `/recent` command for showing terminal history on demand
 - `/menu` slash command menu rendered from one shared command registry
