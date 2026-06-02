@@ -25,6 +25,10 @@ def test_terminal_mvp_flow(tmp_path, monkeypatch):
     assert "🕷" in result.output
     assert "spiderrose >" not in result.output
     assert "Run" in result.output
+    assert "Recent" in result.output
+    assert "User" in result.output
+    assert "Command" in result.output
+    assert "Default agent" in result.output
     assert "Researcher Agent" in result.output
     assert "Search Nathan's LinkedIn" in result.output
     assert "Closed Spider Rose." in result.output
@@ -39,6 +43,8 @@ def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
     result = runner.invoke(app, input="/help\n/exit\n")
     assert result.exit_code == 0
     assert "Commands" in result.output
+    assert "Recent" in result.output
+    assert "Showed command list." in result.output
     assert "/visualise" in result.output
     assert "/new agent <name>" in result.output
     assert "/run <task>" in result.output
@@ -47,6 +53,24 @@ def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
     assert "🕷" in result.output
     assert "spiderrose >" not in result.output
     assert "Use /visualise, /new agent <name>, /run <task>, /help, or /exit." not in result.output
+
+
+def test_terminal_history_tracks_current_session(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("SPIDER_ROSE_PROJECT_ROOT", str(tmp_path))
+
+    result = runner.invoke(app, input="hello\n/help\n/run Plan tomorrow\n/clear\n/exit\n")
+
+    assert result.exit_code == 0
+    assert "Recent" in result.output
+    assert "Input" in result.output
+    assert "hello" in result.output
+    assert "Command needed" in result.output
+    assert "/help" in result.output
+    assert "Showed command list." in result.output
+    assert "/run Plan tomorrow" in result.output
+    assert "Plan tomorrow" in result.output
+    assert "Redrew the terminal shell." in result.output
 
 
 def test_visual_routes_exist(tmp_path):

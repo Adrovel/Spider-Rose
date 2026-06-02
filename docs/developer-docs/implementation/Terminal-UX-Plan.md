@@ -37,12 +37,15 @@ The terminal has the first stable app shape:
 - default agent indicator
 - command response area
 - highlighted `INPUT` prompt with a terminal-native spider glyph
+- visible in-session `Recent` history
 - compact help text when `/help` is used
 
 Still required:
 
-- visible message history
+- persistent history saved after the shell exits
 - richer input behavior after the basic shell is stable
+
+In-session history means Spider Rose remembers commands, inputs, and compact responses while the current shell is open. It is not written to disk yet.
 
 Plain text can become a task for the default agent after the shell has a clear UI. Slash commands remain the reliable app-control layer.
 

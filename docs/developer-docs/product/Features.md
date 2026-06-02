@@ -41,6 +41,7 @@ Implemented behavior:
 - command input line
 - clear command responses
 - panel-rendered run output
+- in-session `Recent` history
 - slash command support
 - `/clear` command
 
@@ -50,7 +51,7 @@ Deferred behavior:
 - multiline composer
 - selectable agent context
 - run history browser
-- visible message history
+- persistent message history
 
 ## Connector Edge Requirement
 

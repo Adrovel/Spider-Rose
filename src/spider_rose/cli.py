@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
 import shlex
 import socket
@@ -18,6 +19,14 @@ from spider_rose.runtime import run_default_agent
 app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution.")
 console = Console()
 INPUT_PROMPT = "[bold black on white] INPUT [/bold black on white] [bold white]🕷[/bold white] [bold green]›[/bold green] "
+HISTORY_LIMIT = 6
+
+
+@dataclass(frozen=True)
+class ShellMessage:
+    role: str
+    title: str
+    body: str
 
 
 @app.callback(invoke_without_command=True)
@@ -63,6 +72,7 @@ def visualise(host: str = "127.0.0.1", port: int = 3000) -> None:
 def interactive_shell() -> None:
     """Run the slash-command terminal shell."""
     root = _root()
+    history: list[ShellMessage] = []
     _render_shell_header(root)
     while True:
         try:
@@ -74,64 +84,87 @@ def interactive_shell() -> None:
         if not raw_command:
             continue
         if not raw_command.startswith("/"):
-            console.print(_message_panel("Use slash commands. Try /help.", "Command needed", "yellow"))
+            history.append(ShellMessage("User", "Input", raw_command))
+            message = "Use slash commands. Try /help."
+            console.print(_message_panel(message, "Command needed", "yellow"))
+            history.append(ShellMessage("System", "Command needed", message))
+            _render_history(history)
             continue
         if raw_command in {"/exit", "/quit"}:
             console.print("[dim]Closed Spider Rose.[/dim]")
             return
-        handle_slash_command(raw_command)
+        history.append(ShellMessage("User", "Command", raw_command))
+        response = handle_slash_command(raw_command)
+        if response:
+            history.append(response)
+        _render_history(history)
 
 
-def handle_slash_command(raw_command: str) -> None:
+def handle_slash_command(raw_command: str) -> ShellMessage | None:
     """Execute one slash command inside the interactive shell."""
     if raw_command.startswith("/run "):
         task = raw_command[len("/run ") :].strip()
         if not task:
-            console.print("[red]Usage: /run <task>[/red]")
-            return
-        run(task)
-        return
+            message = "Usage: /run <task>"
+            console.print(_message_panel(message, "Usage", "red"))
+            return ShellMessage("System", "Usage", message)
+        root = _root()
+        result = run_default_agent(root, task)
+        console.print(_response_panel(result, "Run"))
+        return ShellMessage("Run", "Default agent", task)
 
     try:
         parts = shlex.split(raw_command[1:])
     except ValueError as exc:
-        console.print(f"[red]{exc}[/red]")
-        return
+        message = str(exc)
+        console.print(_message_panel(message, "Parse error", "red"))
+        return ShellMessage("System", "Parse error", message)
 
     if not parts:
-        return
+        return None
 
     command = parts[0]
     args = parts[1:]
 
     if command == "help":
         _render_help()
-        return
+        return ShellMessage("System", "Help", "Showed command list.")
 
     if command == "clear":
         console.clear()
         _render_shell_header(_root())
-        return
+        return ShellMessage("System", "Clear", "Redrew the terminal shell.")
 
     if command == "visualise":
         visualise()
-        return
+        return ShellMessage("System", "Visualise", "Opened the local visual editor.")
 
     if command == "new":
         if len(args) < 2 or args[0] != "agent":
-            console.print("[red]Usage: /new agent <name>[/red]")
-            return
-        new("agent", " ".join(args[1:]))
-        return
+            message = "Usage: /new agent <name>"
+            console.print(_message_panel(message, "Usage", "red"))
+            return ShellMessage("System", "Usage", message)
+        name = " ".join(args[1:])
+        root = _root()
+        path = create_agent(root, name)
+        relative_path = path.relative_to(root)
+        console.print(f"[green]Created agent[/green] {relative_path}")
+        return ShellMessage("System", "Created agent", str(relative_path))
 
     if command == "run":
         if not args:
-            console.print("[red]Usage: /run <task>[/red]")
-            return
-        run(" ".join(args))
-        return
+            message = "Usage: /run <task>"
+            console.print(_message_panel(message, "Usage", "red"))
+            return ShellMessage("System", "Usage", message)
+        task = " ".join(args)
+        root = _root()
+        result = run_default_agent(root, task)
+        console.print(_response_panel(result, "Run"))
+        return ShellMessage("Run", "Default agent", task)
 
-    console.print(_message_panel(f"Unknown command: /{command}\nRun /help to see available commands.", "Unknown command", "red"))
+    message = f"Unknown command: /{command}\nRun /help to see available commands."
+    console.print(_message_panel(message, "Unknown command", "red"))
+    return ShellMessage("System", "Unknown command", f"/{command}")
 
 
 def _render_shell_header(root: Path) -> None:
@@ -157,6 +190,25 @@ def _render_help() -> None:
     table.add_row("/clear", "Clear the terminal and redraw the shell header.")
     table.add_row("/exit", "Close Spider Rose.")
     console.print(Panel(table, title="Commands", border_style="white", padding=(1, 2)))
+
+
+def _render_history(history: list[ShellMessage]) -> None:
+    if not history:
+        return
+    table = Table(show_header=False, box=None, padding=(0, 2))
+    table.add_column("Role", style="bold white", no_wrap=True)
+    table.add_column("Title", style="green", no_wrap=True)
+    table.add_column("Body", style="dim")
+    for message in history[-HISTORY_LIMIT:]:
+        table.add_row(message.role, message.title, _compact_history_body(message.body))
+    console.print(Panel(table, title="Recent", border_style="cyan", padding=(1, 2)))
+
+
+def _compact_history_body(body: str, limit: int = 88) -> str:
+    compact = " ".join(body.split())
+    if len(compact) <= limit:
+        return compact
+    return f"{compact[: limit - 3]}..."
 
 
 def _response_panel(message: str, title: str) -> Panel:
