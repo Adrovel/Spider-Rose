@@ -13,24 +13,34 @@ runner = CliRunner()
 
 def test_terminal_mvp_flow(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("SPIDER_ROSE_PROJECT_ROOT", str(tmp_path))
 
     result = runner.invoke(app, input="/run Search Nathan's LinkedIn\n/exit\n")
     assert result.exit_code == 0
     assert "Spider Rose" in result.output
+    assert "local agent workspace" in result.output
+    assert "Project" in result.output
+    assert "Default" in result.output
+    assert "Run" in result.output
     assert "Researcher Agent" in result.output
     assert "Search Nathan's LinkedIn" in result.output
+    assert "Closed Spider Rose." in result.output
     assert (tmp_path / "agents" / "researcher.md").exists()
     assert (tmp_path / "agents" / "hello.md").exists()
 
 
 def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
+    monkeypatch.setenv("SPIDER_ROSE_PROJECT_ROOT", str(tmp_path))
 
     result = runner.invoke(app, input="/help\n/exit\n")
     assert result.exit_code == 0
+    assert "Commands" in result.output
     assert "/visualise" in result.output
     assert "/new agent <name>" in result.output
     assert "/run <task>" in result.output
+    assert "/clear" in result.output
+    assert "Use /visualise, /new agent <name>, /run <task>, /help, or /exit." not in result.output
 
 
 def test_visual_routes_exist(tmp_path):

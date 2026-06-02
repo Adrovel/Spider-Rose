@@ -25,19 +25,24 @@ Inside the shell:
 /new agent <name>
 /run <task>
 /help
+/clear
 /exit
 ```
 
 ## Required Terminal UI
 
-The terminal should have a stable app shape:
+The terminal has the first stable app shape:
 
 - header with current project path
 - default agent indicator
-- scrollable message history
 - command response area
-- fixed command input line
+- stable command input line
 - compact help text when `/help` is used
+
+Still required:
+
+- visible message history
+- richer input behavior after the basic shell is stable
 
 Plain text can become a task for the default agent after the shell has a clear UI. Slash commands remain the reliable app-control layer.
 
@@ -51,7 +56,7 @@ When the user runs `spiderrose` in a new folder:
 4. Create `agents/researcher.md`.
 5. Create `spider-rose.toml` with `default_agent = "researcher"`.
 5. Print the project path.
-6. Show the slash-command prompt.
+6. Show the project header and slash-command prompt.
 
 The user should not need a separate `init` command in Phase 1.
 
@@ -93,6 +98,7 @@ Rules:
 - Do not require shell-style quoting.
 - Apostrophes and punctuation must work naturally.
 - If no default agent exists, tell the user to create one.
+- Render run output in a clear terminal panel.
 
 ## Visual Flow
 

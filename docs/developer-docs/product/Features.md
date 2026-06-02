@@ -26,7 +26,7 @@ Spider Rose stays local-first and terminal-first. The current priority is making
 
 | Feature | Surface | Status |
 |---|---|---|
-| Terminal UI | `spiderrose` shell | required next |
+| Persistent terminal history | `spiderrose` shell | required next |
 | Connector edges between agent cards | `/workflow` canvas | required next |
 | Custom agent library | terminal and visual app | planned after core editor |
 
@@ -34,14 +34,15 @@ Spider Rose stays local-first and terminal-first. The current priority is making
 
 The terminal should feel like a real app surface, not only a prompt loop.
 
-Required behavior:
+Implemented behavior:
 
-- persistent terminal screen layout
-- visible message history
-- command input area
+- project header
+- default-agent context
+- command input line
 - clear command responses
-- obvious current project and default agent context
+- panel-rendered run output
 - slash command support
+- `/clear` command
 
 Deferred behavior:
 
@@ -49,6 +50,7 @@ Deferred behavior:
 - multiline composer
 - selectable agent context
 - run history browser
+- visible message history
 
 ## Connector Edge Requirement
 

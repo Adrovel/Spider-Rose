@@ -7,8 +7,11 @@ import webbrowser
 
 import typer
 from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.text import Text
 
-from spider_rose.project import ProjectError, create_agent, find_or_init_project_root
+from spider_rose.project import ProjectError, create_agent, find_or_init_project_root, get_default_agent
 from spider_rose.runtime import run_default_agent
 
 
@@ -37,7 +40,7 @@ def new(kind: str, name: str, force: bool = False) -> None:
 def run(task: str = typer.Argument(..., help="Task to send to the default agent.")) -> None:
     """Run the default agent against a terminal task."""
     root = _root()
-    console.print(run_default_agent(root, task))
+    console.print(_response_panel(run_default_agent(root, task), "Run"))
 
 
 @app.command()
@@ -58,12 +61,11 @@ def visualise(host: str = "127.0.0.1", port: int = 3000) -> None:
 
 def interactive_shell() -> None:
     """Run the slash-command terminal shell."""
-    _root()
-    console.print("[bold]Spider Rose[/bold]")
-    console.print("Use /visualise, /new agent <name>, /run <task>, /help, or /exit.")
+    root = _root()
+    _render_shell_header(root)
     while True:
         try:
-            raw_command = input("spiderrose> ").strip()
+            raw_command = console.input("[bold white]spiderrose[/bold white] [dim]>[/dim] ").strip()
         except (EOFError, KeyboardInterrupt):
             console.print()
             return
@@ -71,9 +73,10 @@ def interactive_shell() -> None:
         if not raw_command:
             continue
         if not raw_command.startswith("/"):
-            console.print("[yellow]Use slash commands. Try /help.[/yellow]")
+            console.print(_message_panel("Use slash commands. Try /help.", "Command needed", "yellow"))
             continue
         if raw_command in {"/exit", "/quit"}:
+            console.print("[dim]Closed Spider Rose.[/dim]")
             return
         handle_slash_command(raw_command)
 
@@ -101,11 +104,12 @@ def handle_slash_command(raw_command: str) -> None:
     args = parts[1:]
 
     if command == "help":
-        console.print("Commands:")
-        console.print("  /visualise")
-        console.print("  /new agent <name>")
-        console.print("  /run <task>")
-        console.print("  /exit")
+        _render_help()
+        return
+
+    if command == "clear":
+        console.clear()
+        _render_shell_header(_root())
         return
 
     if command == "visualise":
@@ -126,7 +130,47 @@ def handle_slash_command(raw_command: str) -> None:
         run(" ".join(args))
         return
 
-    console.print(f"[red]Unknown command: /{command}[/red]")
+    console.print(_message_panel(f"Unknown command: /{command}\nRun /help to see available commands.", "Unknown command", "red"))
+
+
+def _render_shell_header(root: Path) -> None:
+    default_agent = _default_agent_label(root)
+    title = Text("Spider Rose", style="bold white")
+    title.append("  local agent workspace", style="dim")
+    body = Table.grid(padding=(0, 2))
+    body.add_column(style="dim", no_wrap=True)
+    body.add_column(style="white")
+    body.add_row("Project", str(root))
+    body.add_row("Default", default_agent)
+    body.add_row("Try", "/run <task>  /new agent <name>  /visualise  /help")
+    console.print(Panel(body, title=title, border_style="white", padding=(1, 2)))
+
+
+def _render_help() -> None:
+    table = Table(show_header=False, box=None, padding=(0, 2))
+    table.add_column("Command", style="bold white", no_wrap=True)
+    table.add_column("Description", style="dim")
+    table.add_row("/run <task>", "Run the default Markdown agent.")
+    table.add_row("/new agent <name>", "Create a local Markdown agent.")
+    table.add_row("/visualise", "Open the local visual editor.")
+    table.add_row("/clear", "Clear the terminal and redraw the shell header.")
+    table.add_row("/exit", "Close Spider Rose.")
+    console.print(Panel(table, title="Commands", border_style="white", padding=(1, 2)))
+
+
+def _response_panel(message: str, title: str) -> Panel:
+    return Panel(message.strip(), title=title, border_style="green", padding=(1, 2))
+
+
+def _message_panel(message: str, title: str, border_style: str) -> Panel:
+    return Panel(message, title=title, border_style=border_style, padding=(1, 2))
+
+
+def _default_agent_label(root: Path) -> str:
+    try:
+        return get_default_agent(root)
+    except ProjectError:
+        return "not set"
 
 
 def _root() -> Path:
