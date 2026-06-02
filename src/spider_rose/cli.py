@@ -17,6 +17,7 @@ from spider_rose.runtime import run_default_agent
 
 app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution.")
 console = Console()
+INPUT_PROMPT = "[bold black on white] INPUT [/bold black on white] [bold white]🕷[/bold white] [bold green]›[/bold green] "
 
 
 @app.callback(invoke_without_command=True)
@@ -65,7 +66,7 @@ def interactive_shell() -> None:
     _render_shell_header(root)
     while True:
         try:
-            raw_command = console.input("[bold white]spiderrose[/bold white] [dim]>[/dim] ").strip()
+            raw_command = console.input(INPUT_PROMPT).strip()
         except (EOFError, KeyboardInterrupt):
             console.print()
             return

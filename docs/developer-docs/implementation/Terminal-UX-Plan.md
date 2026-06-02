@@ -36,7 +36,7 @@ The terminal has the first stable app shape:
 - header with current project path
 - default agent indicator
 - command response area
-- stable command input line
+- highlighted `INPUT` prompt with a terminal-native spider glyph
 - compact help text when `/help` is used
 
 Still required:
