@@ -21,6 +21,9 @@ def test_terminal_mvp_flow(tmp_path, monkeypatch):
     assert "local agent workspace" in result.output
     assert "Project" in result.output
     assert "Default" in result.output
+    assert "INPUT" in result.output
+    assert "🕷" in result.output
+    assert "spiderrose >" not in result.output
     assert "Run" in result.output
     assert "Researcher Agent" in result.output
     assert "Search Nathan's LinkedIn" in result.output
@@ -40,6 +43,9 @@ def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
     assert "/new agent <name>" in result.output
     assert "/run <task>" in result.output
     assert "/clear" in result.output
+    assert "INPUT" in result.output
+    assert "🕷" in result.output
+    assert "spiderrose >" not in result.output
     assert "Use /visualise, /new agent <name>, /run <task>, /help, or /exit." not in result.output
 
 
