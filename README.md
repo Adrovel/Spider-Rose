@@ -4,7 +4,7 @@ Terminal-first agent creation and execution for developers.
 
 Spider Rose lets users create Markdown agents visually, create agents from the terminal, run the default agent from the terminal, and arrange agent cards on a visual canvas.
 
-The next product requirements are a stronger terminal UI and connector edges between agent cards. Workflow execution is archived for a later phase.
+The next product requirements are persistent terminal history and connector edges between agent cards. Workflow execution is archived for a later phase.
 
 ## Install
 
@@ -53,6 +53,7 @@ Inside Spider Rose:
 /visualise
 /new agent researcher
 /run Search Nathan's LinkedIn
+/clear
 /exit
 ```
 
@@ -80,4 +81,4 @@ npm run build-storybook
 
 ## Status
 
-The MVP is intentionally local-first and terminal-first. The runtime currently executes one default Markdown-defined agent deterministically. Terminal UI polish and visual flow edges are required next; logs, validation, LangGraph execution, workflow execution, and multi-agent handoffs are future features.
+The MVP is intentionally local-first and terminal-first. The runtime currently executes one default Markdown-defined agent deterministically. The terminal shell now renders a project header, default-agent context, command panels, and run output panels. Persistent history and visual flow edges are required next; logs, validation, LangGraph execution, workflow execution, and multi-agent handoffs are future features.

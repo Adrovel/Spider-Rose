@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 import tomllib
 
@@ -14,6 +15,13 @@ class ProjectError(RuntimeError):
 
 
 def find_project_root(start: Path | None = None) -> Path:
+    override = os.environ.get("SPIDER_ROSE_PROJECT_ROOT", "").strip()
+    if override:
+        root = Path(override).expanduser().resolve()
+        if (root / CONFIG_FILE).exists():
+            return root
+        raise ProjectError(f"Missing {CONFIG_FILE} at SPIDER_ROSE_PROJECT_ROOT: {root}")
+
     current = (start or Path.cwd()).resolve()
     for path in (current, *current.parents):
         if (path / CONFIG_FILE).exists():
@@ -22,6 +30,13 @@ def find_project_root(start: Path | None = None) -> Path:
 
 
 def find_or_init_project_root(start: Path | None = None) -> Path:
+    override = os.environ.get("SPIDER_ROSE_PROJECT_ROOT", "").strip()
+    if override:
+        root = Path(override).expanduser().resolve()
+        if not (root / CONFIG_FILE).exists():
+            init_project(root)
+        return root
+
     try:
         return find_project_root(start)
     except ProjectError:

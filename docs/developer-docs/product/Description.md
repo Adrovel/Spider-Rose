@@ -6,7 +6,7 @@ Last updated: 2026-06-01
 
 Spider Rose is a local-first agent workspace for developers. It starts in the terminal, stores agents as Markdown files, and gives those same files a browser-based editor and planning canvas.
 
-The current app is not a full workflow engine. It is the first usable loop for creating agents, editing them visually, running the default agent, and arranging agent cards. The next required product step is to make the terminal feel like a proper app UI and add connector edges that show flow between agent cards.
+The current app is not a full workflow engine. It is the first usable loop for creating agents, editing them visually, running the default agent, and arranging agent cards. The next required product step is to add persistent terminal history and connector edges that show flow between agent cards.
 
 ## Working Description
 
@@ -54,6 +54,8 @@ Canvas cards are visual references to Markdown agents. Duplicating a card create
 
 - installable `spiderrose` CLI
 - interactive terminal shell with slash commands
+- terminal header with project and default-agent context
+- panel-rendered help and run output
 - automatic local project initialization
 - preloaded `hello` and `researcher` agents
 - Markdown agent creation
@@ -66,7 +68,7 @@ Canvas cards are visual references to Markdown agents. Duplicating a card create
 
 ## Required Next
 
-- terminal UI with history, context, and a stable input area
+- persistent terminal history
 - directional connector edges between agent cards
 - persisted edge data alongside canvas card positions
 - custom agent library for reusable Markdown agents
