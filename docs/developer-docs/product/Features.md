@@ -41,7 +41,8 @@ Implemented behavior:
 - command input line
 - clear command responses
 - panel-rendered run output
-- in-session `Recent` history
+- background in-session history for task context
+- `/recent` command for showing terminal history
 - slash command support
 - `/clear` command
 

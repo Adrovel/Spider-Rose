@@ -88,19 +88,17 @@ def interactive_shell() -> None:
             message = "Use slash commands. Try /help."
             console.print(_message_panel(message, "Command needed", "yellow"))
             history.append(ShellMessage("System", "Command needed", message))
-            _render_history(history)
             continue
         if raw_command in {"/exit", "/quit"}:
             console.print("[dim]Closed Spider Rose.[/dim]")
             return
         history.append(ShellMessage("User", "Command", raw_command))
-        response = handle_slash_command(raw_command)
+        response = handle_slash_command(raw_command, history)
         if response:
             history.append(response)
-        _render_history(history)
 
 
-def handle_slash_command(raw_command: str) -> ShellMessage | None:
+def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = None) -> ShellMessage | None:
     """Execute one slash command inside the interactive shell."""
     if raw_command.startswith("/run "):
         task = raw_command[len("/run ") :].strip()
@@ -109,7 +107,7 @@ def handle_slash_command(raw_command: str) -> ShellMessage | None:
             console.print(_message_panel(message, "Usage", "red"))
             return ShellMessage("System", "Usage", message)
         root = _root()
-        result = run_default_agent(root, task)
+        result = _run_with_session_context(root, task, _history_before_current_command(history, raw_command))
         console.print(_response_panel(result, "Run"))
         return ShellMessage("Run", "Default agent", task)
 
@@ -129,6 +127,10 @@ def handle_slash_command(raw_command: str) -> ShellMessage | None:
     if command == "help":
         _render_help()
         return ShellMessage("System", "Help", "Showed command list.")
+
+    if command == "recent":
+        _render_history(_history_before_current_command(history, raw_command))
+        return ShellMessage("System", "Recent", "Showed terminal history.")
 
     if command == "clear":
         console.clear()
@@ -158,7 +160,7 @@ def handle_slash_command(raw_command: str) -> ShellMessage | None:
             return ShellMessage("System", "Usage", message)
         task = " ".join(args)
         root = _root()
-        result = run_default_agent(root, task)
+        result = _run_with_session_context(root, task, _history_before_current_command(history, raw_command))
         console.print(_response_panel(result, "Run"))
         return ShellMessage("Run", "Default agent", task)
 
@@ -176,7 +178,7 @@ def _render_shell_header(root: Path) -> None:
     body.add_column(style="white")
     body.add_row("Project", str(root))
     body.add_row("Default", default_agent)
-    body.add_row("Try", "/run <task>  /new agent <name>  /visualise  /help")
+    body.add_row("Try", "/run <task>  /recent  /new agent <name>  /visualise  /help")
     console.print(Panel(body, title=title, border_style="white", padding=(1, 2)))
 
 
@@ -185,6 +187,7 @@ def _render_help() -> None:
     table.add_column("Command", style="bold white", no_wrap=True)
     table.add_column("Description", style="dim")
     table.add_row("/run <task>", "Run the default Markdown agent.")
+    table.add_row("/recent", "Show the current terminal session history.")
     table.add_row("/new agent <name>", "Create a local Markdown agent.")
     table.add_row("/visualise", "Open the local visual editor.")
     table.add_row("/clear", "Clear the terminal and redraw the shell header.")
@@ -194,6 +197,7 @@ def _render_help() -> None:
 
 def _render_history(history: list[ShellMessage]) -> None:
     if not history:
+        console.print(_message_panel("No terminal history yet.", "Recent", "cyan"))
         return
     table = Table(show_header=False, box=None, padding=(0, 2))
     table.add_column("Role", style="bold white", no_wrap=True)
@@ -202,6 +206,39 @@ def _render_history(history: list[ShellMessage]) -> None:
     for message in history[-HISTORY_LIMIT:]:
         table.add_row(message.role, message.title, _compact_history_body(message.body))
     console.print(Panel(table, title="Recent", border_style="cyan", padding=(1, 2)))
+
+
+def _run_with_session_context(root: Path, task: str, history: list[ShellMessage] | None) -> str:
+    result = run_default_agent(root, task)
+    context = _session_context_text(history or [])
+    if not context:
+        return result
+    return f"""{result}
+Session Context:
+{context}
+"""
+
+
+def _session_context_text(history: list[ShellMessage]) -> str:
+    useful_history = [
+        message
+        for message in history
+        if message.role in {"User", "Run", "System"} and message.title not in {"Recent", "Help", "Clear"}
+    ]
+    if not useful_history:
+        return ""
+    return "\n".join(
+        f"- {message.role} {message.title}: {_compact_history_body(message.body, limit=96)}"
+        for message in useful_history[-HISTORY_LIMIT:]
+    )
+
+
+def _history_before_current_command(history: list[ShellMessage] | None, raw_command: str) -> list[ShellMessage]:
+    if not history:
+        return []
+    if history[-1].role == "User" and history[-1].body == raw_command:
+        return history[:-1]
+    return history
 
 
 def _compact_history_body(body: str, limit: int = 88) -> str:

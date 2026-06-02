@@ -25,6 +25,7 @@ Inside the shell:
 /new agent <name>
 /run <task>
 /help
+/recent
 /clear
 /exit
 ```
@@ -37,7 +38,8 @@ The terminal has the first stable app shape:
 - default agent indicator
 - command response area
 - highlighted `INPUT` prompt with a terminal-native spider glyph
-- visible in-session `Recent` history
+- background in-session history
+- `/recent` command for showing terminal history on demand
 - compact help text when `/help` is used
 
 Still required:
@@ -45,7 +47,7 @@ Still required:
 - persistent history saved after the shell exits
 - richer input behavior after the basic shell is stable
 
-In-session history means Spider Rose remembers commands, inputs, and compact responses while the current shell is open. It is not written to disk yet.
+In-session history means Spider Rose remembers commands, inputs, and compact responses while the current shell is open. It is stored quietly in memory, fetched as context when `/run` prepares a task, and shown to the user only when `/recent` is used. It is not written to disk yet.
 
 Plain text can become a task for the default agent after the shell has a clear UI. Slash commands remain the reliable app-control layer.
 
