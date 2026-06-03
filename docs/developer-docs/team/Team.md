@@ -40,7 +40,7 @@ Mukthar owns scoped implementation work, test coverage, documentation upkeep, an
 
 Best tasks:
 
-- learn and teach the Spider Rose TUI fundamentals from `Mukthar-TUI-Working-Start.md`
+- master terminal UI fundamentals, reference strong CLI/TUI products, and teach the concepts from `Mukthar-TUI-Working-Start.md`
 - implement small CLI commands
 - add tests for parser and runtime behavior
 - improve docs after implementation

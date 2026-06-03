@@ -67,6 +67,7 @@ spider-rose.toml
 
 ## Documentation
 
+Core product questions live in [`idea.md`](./idea.md).
 Canonical developer docs live in [`docs/developer-docs/`](./docs/developer-docs/README.md), grouped by product, implementation, planning, and team.
 Research notes live in [`docs/research-docs/`](./docs/research-docs/README.md).
 

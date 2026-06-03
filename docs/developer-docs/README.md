@@ -43,7 +43,7 @@ Planning docs track phased work, atomic tasks, and features intentionally pushed
 
 - [Team](./team/Team.md)
 - [Design Choices](./team/Design-Choices.md)
-- [Mukthar TUI Working Start](./team/Mukthar-TUI-Working-Start.md)
+- [Mukthar TUI Mastery Start](./team/Mukthar-TUI-Working-Start.md)
 
 ## Related Docs
 
