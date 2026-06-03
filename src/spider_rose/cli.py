@@ -237,31 +237,21 @@ def _read_composer_input() -> str:
 
 
 def _read_prompt_toolkit_input() -> str:
-    from prompt_toolkit.application import Application
+    from prompt_toolkit import PromptSession
+    from prompt_toolkit.formatted_text import HTML
     from prompt_toolkit.key_binding import KeyBindings
-    from prompt_toolkit.layout import Layout
-    from prompt_toolkit.layout.containers import HSplit, VSplit, Window
-    from prompt_toolkit.layout.controls import FormattedTextControl
-    from prompt_toolkit.layout.dimension import Dimension
+    from prompt_toolkit.shortcuts import print_formatted_text
     from prompt_toolkit.styles import Style
-    from prompt_toolkit.widgets import TextArea
 
     bindings = KeyBindings()
-    text_area = TextArea(
-        multiline=True,
-        wrap_lines=True,
-        height=Dimension(min=1, preferred=1, max=COMPOSER_INPUT_MAX_HEIGHT, weight=0),
-        scrollbar=True,
-        style="class:composer-input",
-    )
 
     @bindings.add("enter")
     def _(event) -> None:
-        event.app.exit(result=text_area.text)
+        event.app.exit(result=event.app.current_buffer.text)
 
     @bindings.add("escape", "enter")
     def _(event) -> None:
-        text_area.buffer.insert_text("\n")
+        event.app.current_buffer.insert_text("\n")
 
     @bindings.add("c-c")
     def _(event) -> None:
@@ -274,36 +264,20 @@ def _read_prompt_toolkit_input() -> str:
             "composer-input": "bg:#2b2b2b #f5f5f5",
         }
     )
-    icon = Window(
-        FormattedTextControl([("class:composer-icon", "  🕷  ")]),
-        width=6,
-        height=1,
-        style="class:composer-icon",
-    )
-    input_row = VSplit(
-        [icon, text_area],
-        height=Dimension(min=1, preferred=1, max=COMPOSER_INPUT_MAX_HEIGHT, weight=0),
-        style="class:composer",
-    )
-    top_spacer = Window(FormattedTextControl(""), height=1, style="class:composer", dont_extend_height=True)
-    bottom_spacer = Window(FormattedTextControl(""), height=1, style="class:composer", dont_extend_height=True)
-    container = HSplit(
-        [top_spacer, input_row, bottom_spacer],
-        height=Dimension(
-            min=COMPOSER_MIN_HEIGHT,
-            preferred=COMPOSER_MIN_HEIGHT,
-            max=COMPOSER_MAX_HEIGHT,
-            weight=0,
-        ),
-        style="class:composer",
-    )
-    app = Application(
-        layout=Layout(container, focused_element=text_area),
+    blank_line = HTML(f"<composer>{' ' * COMPOSER_WIDTH}</composer>")
+    print_formatted_text(blank_line, style=style)
+    session = PromptSession(
+        multiline=True,
+        wrap_lines=True,
         key_bindings=bindings,
         style=style,
-        full_screen=False,
     )
-    return app.run()
+    result = session.prompt(
+        HTML('<composer-icon>  🕷  </composer-icon><composer-input> </composer-input>'),
+        prompt_continuation=HTML("<composer-input>       </composer-input>"),
+    )
+    print_formatted_text(blank_line, style=style)
+    return result
 
 
 def _featured_command_text() -> str:
