@@ -24,10 +24,13 @@ app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution
 console = Console()
 ROSE = "#d9829b"
 ROSE_BLOOM = "#f0b8c8"
+SPIDER_ROSE = "#a83258"
+COMMAND_ROSE = "#c76180"
 ROSE_SHADOW = "#7a334a"
 PETAL = "#f2d7df"
 COBWEB = "#b9aab1"
 THORN = "#7da08b"
+VINE = "#8fab9a"
 NIGHT_ROSE = "#241920"
 COMPOSER_WIDTH = 78
 COMPOSER_MIN_HEIGHT = 3
@@ -38,7 +41,7 @@ INPUT_PROMPT = "\n".join(
     [
         COMPOSER_BLANK_LINE,
         COMPOSER_BLANK_LINE,
-        "[bold #ff5c8a]  🕷  [/bold #ff5c8a]",
+        f"[bold {SPIDER_ROSE}]  🕷  [/bold {SPIDER_ROSE}]",
     ]
 )
 HISTORY_LIMIT = 6
@@ -79,10 +82,10 @@ class SlashCommandCompleter(Completer):
             return
 
         for command in SLASH_COMMANDS:
-            command_name = command.usage.split()[0]
+            command_name = _command_name(command.usage)
             if command_name.startswith(token):
                 yield Completion(
-                    command_name,
+                    _completion_text(command.usage),
                     start_position=-len(token),
                     display=command.usage,
                     display_meta=command.description,
@@ -146,7 +149,7 @@ def interactive_shell() -> None:
         if not raw_command.startswith("/"):
             history.append(ShellMessage("User", "Input", raw_command))
             message = "Use slash commands. Try /help."
-            console.print(_message_panel(message, "Command needed", "yellow"))
+            console.print(_themed_error_panel(message, "Thorn path"))
             history.append(ShellMessage("System", "Command needed", message))
             continue
         if raw_command in {"/exit", "/quit"}:
@@ -164,7 +167,7 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
         task = raw_command[len("/run ") :].strip()
         if not task:
             message = "Usage: /run <task>"
-            console.print(_message_panel(message, "Usage", "red"))
+            console.print(_themed_error_panel(message, "Petal missing"))
             return ShellMessage("System", "Usage", message)
         root = _root()
         result = _run_with_session_context(root, task, _history_before_current_command(history, raw_command))
@@ -175,7 +178,7 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
         parts = shlex.split(raw_command[1:])
     except ValueError as exc:
         message = str(exc)
-        console.print(_message_panel(message, "Parse error", "red"))
+        console.print(_themed_error_panel(message, "Vine snag"))
         return ShellMessage("System", "Parse error", message)
 
     if not parts:
@@ -208,7 +211,7 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
     if command == "new":
         if len(args) < 2 or args[0] != "agent":
             message = "Usage: /new agent <name>"
-            console.print(_message_panel(message, "Usage", "red"))
+            console.print(_themed_error_panel(message, "Petal missing"))
             return ShellMessage("System", "Usage", message)
         name = " ".join(args[1:])
         root = _root()
@@ -220,7 +223,7 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
     if command == "run":
         if not args:
             message = "Usage: /run <task>"
-            console.print(_message_panel(message, "Usage", "red"))
+            console.print(_themed_error_panel(message, "Petal missing"))
             return ShellMessage("System", "Usage", message)
         task = " ".join(args)
         root = _root()
@@ -229,7 +232,7 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
         return ShellMessage("Run", "Default agent", task)
 
     message = f"Unknown command: /{command}\nRun /help to see available commands."
-    console.print(_message_panel(message, "Unknown command", "red"))
+    console.print(_themed_error_panel(message, "Thorned command"))
     return ShellMessage("System", "Unknown command", f"/{command}")
 
 
@@ -263,10 +266,20 @@ def _render_command_menu(title: str) -> None:
 
 def _command_usage_text(usage: str) -> Text:
     command, _, args = usage.partition(" ")
-    text = Text(command, style=f"bold {ROSE_BLOOM}")
+    text = Text(command, style=f"bold {COMMAND_ROSE}")
     if args:
         text.append(f" {args}", style=COBWEB)
     return text
+
+
+def _command_name(usage: str) -> str:
+    return usage.split()[0]
+
+
+def _completion_text(usage: str) -> str:
+    if usage.startswith("/new agent "):
+        return "/new agent "
+    return _command_name(usage)
 
 
 def _read_composer_input() -> str:
@@ -311,7 +324,7 @@ def _read_prompt_toolkit_input() -> str:
             "completion-menu.completion.current": f"bg:{ROSE_SHADOW} #ffffff bold",
             "completion-menu.meta.completion": f"bg:{NIGHT_ROSE} {COBWEB}",
             "completion-menu.meta.completion.current": f"bg:{ROSE_SHADOW} {PETAL}",
-            "composer-icon": f"{ROSE_BLOOM} bold",
+            "composer-icon": f"{SPIDER_ROSE} bold",
             "composer-input": "#f5f5f5",
             "scrollbar.background": f"bg:{NIGHT_ROSE}",
             "scrollbar.button": f"bg:{ROSE_SHADOW}",
@@ -399,6 +412,12 @@ def _response_panel(message: str, title: str) -> Panel:
 
 def _message_panel(message: str, title: str, border_style: str) -> Panel:
     return Panel(message, title=title, border_style=border_style, padding=(1, 2))
+
+
+def _themed_error_panel(message: str, title: str) -> Panel:
+    body = Text("❧ ", style=f"bold {THORN}")
+    body.append(message, style=PETAL)
+    return Panel(body, title=f"🌿 {title}", border_style=VINE, padding=(1, 2))
 
 
 def _default_agent_label(root: Path) -> str:

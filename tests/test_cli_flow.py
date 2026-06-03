@@ -35,6 +35,7 @@ def test_slash_command_typeahead_uses_registered_commands():
     assert "/run" in completions("/")
     assert "/recent" in completions("/r")
     assert "/menu" in completions("/m")
+    assert "/new agent " in completions("/n")
     assert completions("hello") == []
     assert completions("/run ") == []
 
