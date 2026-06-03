@@ -51,6 +51,8 @@ Composer behavior:
 - no placeholder text is shown
 - typing starts on the middle input row next to the spider indicator
 - the grey composer area uses consistent spacing around the icon and text
+- empty composer height is fixed at three rows and does not scale with terminal height
+- the composer grows only with content, capped at twelve rows before scrolling
 - Enter submits the current command; Esc+Enter inserts a new line in interactive terminals
 - interactive terminals use prompt-toolkit for multiline input; non-interactive scripts use a compatible fallback prompt
 

@@ -4,11 +4,17 @@ import json
 
 from typer.testing import CliRunner
 
-from spider_rose.cli import app
+from spider_rose.cli import COMPOSER_INPUT_MAX_HEIGHT, COMPOSER_MAX_HEIGHT, COMPOSER_MIN_HEIGHT, app
 from spider_rose.server import _read_workflow_layout, create_app
 
 
 runner = CliRunner()
+
+
+def test_composer_height_is_bounded():
+    assert COMPOSER_MIN_HEIGHT == 3
+    assert COMPOSER_MAX_HEIGHT == 12
+    assert COMPOSER_INPUT_MAX_HEIGHT == 10
 
 
 def test_terminal_mvp_flow(tmp_path, monkeypatch):
