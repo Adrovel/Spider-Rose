@@ -20,6 +20,9 @@ from spider_rose.runtime import run_default_agent
 app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution.")
 console = Console()
 COMPOSER_WIDTH = 78
+COMPOSER_MIN_HEIGHT = 3
+COMPOSER_MAX_HEIGHT = 12
+COMPOSER_INPUT_MAX_HEIGHT = COMPOSER_MAX_HEIGHT - 2
 COMPOSER_BLANK_LINE = f"[white on grey11]{' ' * COMPOSER_WIDTH}[/white on grey11]"
 INPUT_PROMPT = "\n".join(
     [
@@ -247,8 +250,8 @@ def _read_prompt_toolkit_input() -> str:
     text_area = TextArea(
         multiline=True,
         wrap_lines=True,
-        height=Dimension(min=1),
-        scrollbar=False,
+        height=Dimension(min=1, preferred=1, max=COMPOSER_INPUT_MAX_HEIGHT, weight=0),
+        scrollbar=True,
         style="class:composer-input",
     )
 
@@ -279,12 +282,19 @@ def _read_prompt_toolkit_input() -> str:
     )
     input_row = VSplit(
         [icon, text_area],
+        height=Dimension(min=1, preferred=1, max=COMPOSER_INPUT_MAX_HEIGHT, weight=0),
         style="class:composer",
     )
-    top_spacer = Window(FormattedTextControl(""), height=1, style="class:composer")
-    bottom_spacer = Window(FormattedTextControl(""), height=1, style="class:composer")
+    top_spacer = Window(FormattedTextControl(""), height=1, style="class:composer", dont_extend_height=True)
+    bottom_spacer = Window(FormattedTextControl(""), height=1, style="class:composer", dont_extend_height=True)
     container = HSplit(
         [top_spacer, input_row, bottom_spacer],
+        height=Dimension(
+            min=COMPOSER_MIN_HEIGHT,
+            preferred=COMPOSER_MIN_HEIGHT,
+            max=COMPOSER_MAX_HEIGHT,
+            weight=0,
+        ),
         style="class:composer",
     )
     app = Application(
