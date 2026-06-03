@@ -22,8 +22,10 @@ Joel's immediate work:
 - [x] Decide first-run feeling: simplicity.
 - [x] Decide product feel: local workflow builder and agent IDE.
 - [x] Decide agent creation interaction: chat-style wizard, not a form.
-- [ ] Define the chat-style wizard questions for creating the first useful agent.
-- [ ] Decide which fields a non-developer must understand to create a useful agent.
+- [x] Define the chat-style wizard questions for creating the first useful agent.
+- [x] Decide which fields a non-developer must understand to create a useful agent.
+- [ ] Define exact terminal wizard command behavior for `/new agent`.
+- [ ] Define exact visual wizard entry point and review screen.
 - [ ] Resolve terminal versus visual boundary from the ambiguous queue.
 - [ ] Clarify what connector edges mean before implementation: visual planning only, execution logic, or future execution structure.
 - [ ] Clarify the minimum useful workflow before workflow execution exists.

@@ -122,3 +122,25 @@ Follow-up:
 - Make the visual app feel conversational rather than form-heavy.
 - Explore a terminal wizard flow for `/new agent` that asks one question at a time.
 - Keep the generated result editable after the wizard finishes.
+
+## QNA-007 - Agent Creation Wizard Content
+
+Question:
+
+What should the chat-style agent creation wizard ask, show after completion, and do before saving?
+
+Answer:
+
+The wizard should begin with "Create your own agents." It should ask what the agent should do, what it should know, what outputs it should produce, and what tools it should use. After completion, it should show "agent created" and an agent summary, with some possibility to edit the agent. A review step before saving is preferred.
+
+Decision:
+
+The first agent creation wizard should be short, conversational, and review-based. It should gather only the minimum information needed to create a useful first agent, then show a summary and let the user review or edit before the agent is finalized.
+
+Follow-up:
+
+- Use "Create your own agents" as the starting wizard message.
+- Ask these wizard questions first: what should this agent do, what should it know, what outputs should it produce, and what tools should it use.
+- Show an agent-created state and agent summary after the wizard completes.
+- Include an edit/review step before saving the final agent.
+- Make the same question flow usable in the terminal wizard and visual app wizard.
