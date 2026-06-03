@@ -38,11 +38,20 @@ The terminal has the first stable app shape:
 - header with current project path
 - default agent indicator
 - command response area
-- three-line grey `INPUT` composer with a terminal-native spider glyph
+- three-row grey composer with only a terminal-native spider glyph as the input indicator
+- interactive multiline input that grows as content wraps or new lines are inserted
 - background in-session history
 - `/recent` command for showing terminal history on demand
 - `/menu` slash command menu rendered from one shared command registry
 - compact help text when `/help` is used
+
+Composer behavior:
+
+- no placeholder text is shown
+- typing starts on the middle input row next to the spider indicator
+- the grey composer area uses consistent spacing around the icon and text
+- Enter submits the current command; Esc+Enter inserts a new line in interactive terminals
+- interactive terminals use prompt-toolkit for multiline input; non-interactive scripts use a compatible fallback prompt
 
 Still required:
 

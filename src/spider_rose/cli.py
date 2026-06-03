@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import shlex
 import socket
+import sys
 import webbrowser
 
 import typer
@@ -18,11 +19,13 @@ from spider_rose.runtime import run_default_agent
 
 app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution.")
 console = Console()
+COMPOSER_WIDTH = 78
+COMPOSER_BLANK_LINE = f"[white on grey11]{' ' * COMPOSER_WIDTH}[/white on grey11]"
 INPUT_PROMPT = "\n".join(
     [
-        "[white on grey11]                                                                              [/white on grey11]",
-        "[white on grey11]  Terminal input - slash commands are routed through Spider Rose memory.       [/white on grey11]",
-        "[bold white on grey23] INPUT  🕷 [/bold white on grey23][white on grey11] Type a slash command [/white on grey11] [bold green]›[/bold green] ",
+        COMPOSER_BLANK_LINE,
+        COMPOSER_BLANK_LINE,
+        "[bold white on grey23]  🕷  [/bold white on grey23][white on grey11] [/white on grey11]",
     ]
 )
 HISTORY_LIMIT = 6
@@ -101,7 +104,7 @@ def interactive_shell() -> None:
     _render_shell_header(root)
     while True:
         try:
-            raw_command = console.input(INPUT_PROMPT).strip()
+            raw_command = _read_composer_input().strip()
         except (EOFError, KeyboardInterrupt):
             console.print()
             return
@@ -218,6 +221,78 @@ def _render_command_menu(title: str) -> None:
     for command in SLASH_COMMANDS:
         table.add_row(command.usage, command.description)
     console.print(Panel(table, title=title, border_style="white", padding=(1, 2)))
+
+
+def _read_composer_input() -> str:
+    if not sys.stdin.isatty():
+        return console.input(INPUT_PROMPT)
+    try:
+        return _read_prompt_toolkit_input()
+    except ImportError:
+        return console.input(INPUT_PROMPT)
+
+
+def _read_prompt_toolkit_input() -> str:
+    from prompt_toolkit.application import Application
+    from prompt_toolkit.key_binding import KeyBindings
+    from prompt_toolkit.layout import Layout
+    from prompt_toolkit.layout.containers import HSplit, VSplit, Window
+    from prompt_toolkit.layout.controls import FormattedTextControl
+    from prompt_toolkit.layout.dimension import Dimension
+    from prompt_toolkit.styles import Style
+    from prompt_toolkit.widgets import TextArea
+
+    bindings = KeyBindings()
+    text_area = TextArea(
+        multiline=True,
+        wrap_lines=True,
+        height=Dimension(min=1),
+        scrollbar=False,
+        style="class:composer-input",
+    )
+
+    @bindings.add("enter")
+    def _(event) -> None:
+        event.app.exit(result=text_area.text)
+
+    @bindings.add("escape", "enter")
+    def _(event) -> None:
+        text_area.buffer.insert_text("\n")
+
+    @bindings.add("c-c")
+    def _(event) -> None:
+        event.app.exit(exception=KeyboardInterrupt)
+
+    style = Style.from_dict(
+        {
+            "composer": "bg:#2b2b2b",
+            "composer-icon": "bg:#333333 #ffffff bold",
+            "composer-input": "bg:#2b2b2b #f5f5f5",
+        }
+    )
+    icon = Window(
+        FormattedTextControl([("class:composer-icon", "  🕷  ")]),
+        width=6,
+        height=1,
+        style="class:composer-icon",
+    )
+    input_row = VSplit(
+        [icon, text_area],
+        style="class:composer",
+    )
+    top_spacer = Window(FormattedTextControl(""), height=1, style="class:composer")
+    bottom_spacer = Window(FormattedTextControl(""), height=1, style="class:composer")
+    container = HSplit(
+        [top_spacer, input_row, bottom_spacer],
+        style="class:composer",
+    )
+    app = Application(
+        layout=Layout(container, focused_element=text_area),
+        key_bindings=bindings,
+        style=style,
+        full_screen=False,
+    )
+    return app.run()
 
 
 def _featured_command_text() -> str:

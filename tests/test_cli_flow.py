@@ -21,11 +21,11 @@ def test_terminal_mvp_flow(tmp_path, monkeypatch):
     assert "local agent workspace" in result.output
     assert "Project" in result.output
     assert "Default" in result.output
-    assert "INPUT" in result.output
-    assert "Terminal input" in result.output
-    assert "Spider Rose memory" in result.output
-    assert "Type a slash command" in result.output
     assert "🕷" in result.output
+    assert "INPUT" not in result.output
+    assert "Terminal input" not in result.output
+    assert "Spider Rose memory" not in result.output
+    assert "Type a slash command" not in result.output
     assert "spiderrose >" not in result.output
     assert "Run" in result.output
     assert "Researcher Agent" in result.output
@@ -49,11 +49,11 @@ def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
     assert "/recent" in result.output
     assert "/menu" in result.output
     assert "/clear" in result.output
-    assert "INPUT" in result.output
-    assert "Terminal input" in result.output
-    assert "Spider Rose memory" in result.output
-    assert "Type a slash command" in result.output
     assert "🕷" in result.output
+    assert "INPUT" not in result.output
+    assert "Terminal input" not in result.output
+    assert "Spider Rose memory" not in result.output
+    assert "Type a slash command" not in result.output
     assert "spiderrose >" not in result.output
     assert "Recent" not in result.output
     assert "Showed command list." not in result.output
