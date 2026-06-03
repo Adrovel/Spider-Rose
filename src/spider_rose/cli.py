@@ -22,6 +22,13 @@ from spider_rose.runtime import run_default_agent
 
 app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution.")
 console = Console()
+ROSE = "#d9829b"
+ROSE_BLOOM = "#f0b8c8"
+ROSE_SHADOW = "#7a334a"
+PETAL = "#f2d7df"
+COBWEB = "#b9aab1"
+THORN = "#7da08b"
+NIGHT_ROSE = "#241920"
 COMPOSER_WIDTH = 78
 COMPOSER_MIN_HEIGHT = 3
 COMPOSER_MAX_HEIGHT = 12
@@ -228,7 +235,7 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
 
 def _render_shell_header(root: Path) -> None:
     default_agent = _default_agent_label(root)
-    title = Text("🕷 Spider Rose", style="bold #ff5c8a")
+    title = Text("🕷 Spider Rose", style=f"bold {ROSE_BLOOM}")
     title.append("  🕸 local agent web", style="dim")
     body = Table.grid(padding=(0, 2))
     body.add_column(style="dim", no_wrap=True)
@@ -237,16 +244,29 @@ def _render_shell_header(root: Path) -> None:
     body.add_row("Default", default_agent)
     body.add_row("Theme", "rose web shell")
     body.add_row("Try", _featured_command_text())
-    console.print(Panel(body, title=title, border_style="#ff5c8a", padding=(1, 2)))
+    console.print(Panel(body, title=title, border_style=ROSE, padding=(1, 2)))
 
 
 def _render_command_menu(title: str) -> None:
-    table = Table(show_header=False, box=None, padding=(0, 2))
-    table.add_column("Command", style="bold white", no_wrap=True)
-    table.add_column("Description", style="dim")
+    table = Table(show_header=False, box=None, padding=(0, 2), expand=False)
+    table.add_column("Petal", style=THORN, no_wrap=True)
+    table.add_column("Command", no_wrap=True)
+    table.add_column("Description", style=COBWEB)
     for command in SLASH_COMMANDS:
-        table.add_row(command.usage, command.description)
-    console.print(Panel(table, title=f"🕸 {title}", border_style="#ff5c8a", padding=(1, 2)))
+        table.add_row("❧", _command_usage_text(command.usage), command.description)
+
+    panel_title = Text("🕷 ", style=f"bold {ROSE_BLOOM}")
+    panel_title.append(title, style=f"bold {PETAL}")
+    panel_title.append("  🕸 rose web", style=COBWEB)
+    console.print(Panel(table, title=panel_title, border_style=ROSE_SHADOW, padding=(1, 2)))
+
+
+def _command_usage_text(usage: str) -> Text:
+    command, _, args = usage.partition(" ")
+    text = Text(command, style=f"bold {ROSE_BLOOM}")
+    if args:
+        text.append(f" {args}", style=COBWEB)
+    return text
 
 
 def _read_composer_input() -> str:
@@ -287,8 +307,14 @@ def _read_prompt_toolkit_input() -> str:
 
     style = Style.from_dict(
         {
-            "composer-icon": "#ff5c8a bold",
+            "completion-menu.completion": f"bg:{NIGHT_ROSE} {PETAL}",
+            "completion-menu.completion.current": f"bg:{ROSE_SHADOW} #ffffff bold",
+            "completion-menu.meta.completion": f"bg:{NIGHT_ROSE} {COBWEB}",
+            "completion-menu.meta.completion.current": f"bg:{ROSE_SHADOW} {PETAL}",
+            "composer-icon": f"{ROSE_BLOOM} bold",
             "composer-input": "#f5f5f5",
+            "scrollbar.background": f"bg:{NIGHT_ROSE}",
+            "scrollbar.button": f"bg:{ROSE_SHADOW}",
         }
     )
     blank_line = HTML(" ")
@@ -368,7 +394,7 @@ def _compact_history_body(body: str, limit: int = 88) -> str:
 
 
 def _response_panel(message: str, title: str) -> Panel:
-    return Panel(message.strip(), title=f"🌹 {title}", border_style="#ff5c8a", padding=(1, 2))
+    return Panel(message.strip(), title=f"🌹 {title}", border_style=ROSE, padding=(1, 2))
 
 
 def _message_panel(message: str, title: str, border_style: str) -> Panel:
