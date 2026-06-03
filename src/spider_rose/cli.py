@@ -239,9 +239,20 @@ def _read_composer_input() -> str:
 def _read_prompt_toolkit_input() -> str:
     from prompt_toolkit import PromptSession
     from prompt_toolkit.formatted_text import HTML
+    from prompt_toolkit.formatted_text.utils import fragment_list_width
     from prompt_toolkit.key_binding import KeyBindings
+    from prompt_toolkit.layout.processors import Processor, Transformation, TransformationInput
     from prompt_toolkit.shortcuts import print_formatted_text
     from prompt_toolkit.styles import Style
+
+    class ComposerBackgroundProcessor(Processor):
+        def apply_transformation(self, transformation_input: TransformationInput) -> Transformation:
+            fragments = list(transformation_input.fragments)
+            used_width = fragment_list_width(fragments)
+            remaining_width = max(0, transformation_input.width - used_width)
+            if remaining_width:
+                fragments.append(("class:composer-input", " " * remaining_width))
+            return Transformation(fragments)
 
     bindings = KeyBindings()
 
@@ -259,6 +270,7 @@ def _read_prompt_toolkit_input() -> str:
 
     style = Style.from_dict(
         {
+            "": "bg:#2b2b2b #f5f5f5",
             "composer": "bg:#2b2b2b",
             "composer-icon": "bg:#333333 #ff5c8a bold",
             "composer-input": "bg:#2b2b2b #f5f5f5",
@@ -271,6 +283,7 @@ def _read_prompt_toolkit_input() -> str:
         wrap_lines=True,
         key_bindings=bindings,
         style=style,
+        input_processors=[ComposerBackgroundProcessor()],
     )
     result = session.prompt(
         HTML('<composer-icon>  🕷  </composer-icon><composer-input> </composer-input>'),
