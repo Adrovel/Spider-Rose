@@ -23,12 +23,12 @@ COMPOSER_WIDTH = 78
 COMPOSER_MIN_HEIGHT = 3
 COMPOSER_MAX_HEIGHT = 12
 COMPOSER_INPUT_MAX_HEIGHT = COMPOSER_MAX_HEIGHT - 2
-COMPOSER_BLANK_LINE = f"[white on grey11]{' ' * COMPOSER_WIDTH}[/white on grey11]"
+COMPOSER_BLANK_LINE = " " * COMPOSER_WIDTH
 INPUT_PROMPT = "\n".join(
     [
         COMPOSER_BLANK_LINE,
         COMPOSER_BLANK_LINE,
-        "[bold #ff5c8a on grey23]  🕷  [/bold #ff5c8a on grey23][white on grey11] [/white on grey11]",
+        "[bold #ff5c8a]  🕷  [/bold #ff5c8a]",
     ]
 )
 HISTORY_LIMIT = 6
@@ -239,20 +239,9 @@ def _read_composer_input() -> str:
 def _read_prompt_toolkit_input() -> str:
     from prompt_toolkit import PromptSession
     from prompt_toolkit.formatted_text import HTML
-    from prompt_toolkit.formatted_text.utils import fragment_list_width
     from prompt_toolkit.key_binding import KeyBindings
-    from prompt_toolkit.layout.processors import Processor, Transformation, TransformationInput
     from prompt_toolkit.shortcuts import print_formatted_text
     from prompt_toolkit.styles import Style
-
-    class ComposerBackgroundProcessor(Processor):
-        def apply_transformation(self, transformation_input: TransformationInput) -> Transformation:
-            fragments = list(transformation_input.fragments)
-            used_width = fragment_list_width(fragments)
-            remaining_width = max(0, transformation_input.width - used_width)
-            if remaining_width:
-                fragments.append(("class:composer-input", " " * remaining_width))
-            return Transformation(fragments)
 
     bindings = KeyBindings()
 
@@ -270,20 +259,17 @@ def _read_prompt_toolkit_input() -> str:
 
     style = Style.from_dict(
         {
-            "": "bg:#2b2b2b #f5f5f5",
-            "composer": "bg:#2b2b2b",
-            "composer-icon": "bg:#333333 #ff5c8a bold",
-            "composer-input": "bg:#2b2b2b #f5f5f5",
+            "composer-icon": "#ff5c8a bold",
+            "composer-input": "#f5f5f5",
         }
     )
-    blank_line = HTML(f"<composer>{' ' * COMPOSER_WIDTH}</composer>")
+    blank_line = HTML(" ")
     print_formatted_text(blank_line, style=style)
     session = PromptSession(
         multiline=True,
         wrap_lines=True,
         key_bindings=bindings,
         style=style,
-        input_processors=[ComposerBackgroundProcessor()],
     )
     result = session.prompt(
         HTML('<composer-icon>  🕷  </composer-icon><composer-input> </composer-input>'),

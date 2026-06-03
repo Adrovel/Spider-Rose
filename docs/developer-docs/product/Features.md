@@ -38,7 +38,7 @@ Implemented behavior:
 
 - project header
 - default-agent context
-- three-row grey input composer with spider-only indicator
+- three-row input composer with spider-only indicator
 - clear command responses
 - panel-rendered run output
 - background in-session history for task context
