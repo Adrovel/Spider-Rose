@@ -20,6 +20,7 @@ Product docs explain what Spider Rose is, who it is for, and what promises the a
 - [Description](./product/Description.md)
 - [Features](./product/Features.md)
 - [Product Principles](./product/Product-Principles.md)
+- [Product Decisions](./product-decisions/README.md)
 
 ## Implementation
 
