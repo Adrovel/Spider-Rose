@@ -4,7 +4,15 @@ import json
 
 from typer.testing import CliRunner
 
-from spider_rose.cli import COMPOSER_INPUT_MAX_HEIGHT, COMPOSER_MAX_HEIGHT, COMPOSER_MIN_HEIGHT, app
+from prompt_toolkit.document import Document
+
+from spider_rose.cli import (
+    COMPOSER_INPUT_MAX_HEIGHT,
+    COMPOSER_MAX_HEIGHT,
+    COMPOSER_MIN_HEIGHT,
+    SlashCommandCompleter,
+    app,
+)
 from spider_rose.server import _read_workflow_layout, create_app
 
 
@@ -15,6 +23,20 @@ def test_composer_height_is_bounded():
     assert COMPOSER_MIN_HEIGHT == 3
     assert COMPOSER_MAX_HEIGHT == 12
     assert COMPOSER_INPUT_MAX_HEIGHT == 10
+
+
+def test_slash_command_typeahead_uses_registered_commands():
+    completer = SlashCommandCompleter()
+
+    def completions(text: str) -> list[str]:
+        document = Document(text=text, cursor_position=len(text))
+        return [completion.text for completion in completer.get_completions(document, None)]
+
+    assert "/run" in completions("/")
+    assert "/recent" in completions("/r")
+    assert "/menu" in completions("/m")
+    assert completions("hello") == []
+    assert completions("/run ") == []
 
 
 def test_terminal_mvp_flow(tmp_path, monkeypatch):

@@ -44,6 +44,7 @@ Implemented behavior:
 - background in-session history for task context
 - `/recent` command for showing terminal history
 - `/menu` command for showing the shared slash command menu
+- slash command typeahead sourced from the shared command registry
 - slash command support
 - `/clear` command
 
