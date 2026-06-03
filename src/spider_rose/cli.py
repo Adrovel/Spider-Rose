@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
 import shlex
@@ -8,6 +9,8 @@ import sys
 import webbrowser
 
 import typer
+from prompt_toolkit.completion import Completer, Completion
+from prompt_toolkit.document import Document
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -58,6 +61,25 @@ SLASH_COMMANDS: tuple[SlashCommand, ...] = (
     SlashCommand("/help", "Show command help."),
     SlashCommand("/exit", "Close Spider Rose."),
 )
+
+
+class SlashCommandCompleter(Completer):
+    """Suggest registered slash commands while the user types the command token."""
+
+    def get_completions(self, document: Document, complete_event) -> Iterator[Completion]:
+        token = document.text_before_cursor
+        if not token.startswith("/") or any(character.isspace() for character in token):
+            return
+
+        for command in SLASH_COMMANDS:
+            command_name = command.usage.split()[0]
+            if command_name.startswith(token):
+                yield Completion(
+                    command_name,
+                    start_position=-len(token),
+                    display=command.usage,
+                    display_meta=command.description,
+                )
 
 
 @app.callback(invoke_without_command=True)
@@ -240,6 +262,7 @@ def _read_prompt_toolkit_input() -> str:
     from prompt_toolkit import PromptSession
     from prompt_toolkit.formatted_text import HTML
     from prompt_toolkit.key_binding import KeyBindings
+    from prompt_toolkit.shortcuts import CompleteStyle
     from prompt_toolkit.shortcuts import print_formatted_text
     from prompt_toolkit.styles import Style
 
@@ -257,6 +280,11 @@ def _read_prompt_toolkit_input() -> str:
     def _(event) -> None:
         event.app.exit(exception=KeyboardInterrupt)
 
+    @bindings.add("/")
+    def _(event) -> None:
+        event.app.current_buffer.insert_text("/")
+        event.app.current_buffer.start_completion(select_first=False)
+
     style = Style.from_dict(
         {
             "composer-icon": "#ff5c8a bold",
@@ -270,6 +298,9 @@ def _read_prompt_toolkit_input() -> str:
         wrap_lines=True,
         key_bindings=bindings,
         style=style,
+        completer=SlashCommandCompleter(),
+        complete_while_typing=True,
+        complete_style=CompleteStyle.COLUMN,
     )
     result = session.prompt(
         HTML('<composer-icon>  🕷  </composer-icon><composer-input> </composer-input>'),
