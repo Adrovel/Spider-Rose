@@ -38,7 +38,7 @@ The terminal has the first stable app shape:
 - header with current project path
 - default agent indicator
 - command response area
-- three-row grey composer with only a terminal-native spider glyph as the input indicator
+- three-row composer with only a terminal-native spider glyph as the input indicator
 - rose-colored spider indicator and rose/web panel accents
 - interactive multiline input that grows as content wraps or new lines are inserted
 - background in-session history
@@ -50,7 +50,7 @@ Composer behavior:
 
 - no placeholder text is shown
 - typing starts on the middle input row next to the spider indicator
-- the grey composer area uses consistent spacing around the icon and text
+- the composer uses consistent spacing around the icon and text
 - empty composer height is fixed at three rows and does not scale with terminal height
 - the composer grows only with content, capped at twelve rows before scrolling
 - Enter submits the current command; Esc+Enter inserts a new line in interactive terminals
