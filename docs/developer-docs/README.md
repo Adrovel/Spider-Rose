@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Working developer docs  
-Last updated: 2026-06-01
+Last updated: 2026-06-03
 
 This folder is the working map for Spider Rose development. Start here, then open the smallest doc that matches the work.
 
@@ -43,6 +43,7 @@ Planning docs track phased work, atomic tasks, and features intentionally pushed
 
 - [Team](./team/Team.md)
 - [Design Choices](./team/Design-Choices.md)
+- [Mukthar TUI Working Start](./team/Mukthar-TUI-Working-Start.md)
 
 ## Related Docs
 

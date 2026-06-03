@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Active team plan  
-Last updated: 2026-06-01
+Last updated: 2026-06-03
 
 ## Capacity
 
@@ -40,6 +40,7 @@ Mukthar owns scoped implementation work, test coverage, documentation upkeep, an
 
 Best tasks:
 
+- learn and teach the Spider Rose TUI fundamentals from `Mukthar-TUI-Working-Start.md`
 - implement small CLI commands
 - add tests for parser and runtime behavior
 - improve docs after implementation
@@ -55,6 +56,9 @@ Non-blocking work:
 
 ## Shared Rules
 
+- Principle No. 1: before you optise a requirement or complete a task, question whether the task needs to be done.
+- Requirement No. 2: understand the fundamentals of the task, even if you think you know it.
+- Requirement No. 3: if you don't know the fundamentals, learn it before implementing the task.
 - Keep terminal use working before workflow features.
 - Update developer docs when changing architecture or command behavior.
 - Do not add a third definition format.
