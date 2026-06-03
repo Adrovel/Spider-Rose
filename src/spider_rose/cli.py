@@ -24,7 +24,7 @@ app = typer.Typer(help="Spider Rose: terminal-first agent creation and execution
 console = Console()
 ROSE = "#d9829b"
 ROSE_BLOOM = "#f0b8c8"
-SPIDER_ROSE = "#a83258"
+SPIDER_ROSE = ROSE_BLOOM
 COMMAND_ROSE = "#c76180"
 ROSE_SHADOW = "#7a334a"
 PETAL = "#f2d7df"
