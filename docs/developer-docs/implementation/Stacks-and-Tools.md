@@ -9,7 +9,7 @@ Last updated: 2026-06-01
 | Layer | Tool | Why |
 |---|---|---|
 | CLI | Typer | clean Python CLI with nested commands |
-| Terminal UI | Rich | readable tables and status output |
+| Terminal UI | Rich + prompt-toolkit | readable panels plus multiline terminal input |
 | Runtime | Python single-agent runner | smallest useful terminal MVP |
 | Agent format | Markdown | editable, git-friendly, readable |
 | Local app server | FastAPI | simple local server for the visual agent editor |
