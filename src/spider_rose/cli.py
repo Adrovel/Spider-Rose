@@ -25,7 +25,7 @@ INPUT_PROMPT = "\n".join(
     [
         COMPOSER_BLANK_LINE,
         COMPOSER_BLANK_LINE,
-        "[bold white on grey23]  🕷  [/bold white on grey23][white on grey11] [/white on grey11]",
+        "[bold #ff5c8a on grey23]  🕷  [/bold #ff5c8a on grey23][white on grey11] [/white on grey11]",
     ]
 )
 HISTORY_LIMIT = 6
@@ -203,15 +203,16 @@ def handle_slash_command(raw_command: str, history: list[ShellMessage] | None = 
 
 def _render_shell_header(root: Path) -> None:
     default_agent = _default_agent_label(root)
-    title = Text("Spider Rose", style="bold white")
-    title.append("  local agent workspace", style="dim")
+    title = Text("🕷 Spider Rose", style="bold #ff5c8a")
+    title.append("  🕸 local agent web", style="dim")
     body = Table.grid(padding=(0, 2))
     body.add_column(style="dim", no_wrap=True)
     body.add_column(style="white")
     body.add_row("Project", str(root))
     body.add_row("Default", default_agent)
+    body.add_row("Theme", "rose web shell")
     body.add_row("Try", _featured_command_text())
-    console.print(Panel(body, title=title, border_style="white", padding=(1, 2)))
+    console.print(Panel(body, title=title, border_style="#ff5c8a", padding=(1, 2)))
 
 
 def _render_command_menu(title: str) -> None:
@@ -220,7 +221,7 @@ def _render_command_menu(title: str) -> None:
     table.add_column("Description", style="dim")
     for command in SLASH_COMMANDS:
         table.add_row(command.usage, command.description)
-    console.print(Panel(table, title=title, border_style="white", padding=(1, 2)))
+    console.print(Panel(table, title=f"🕸 {title}", border_style="#ff5c8a", padding=(1, 2)))
 
 
 def _read_composer_input() -> str:
@@ -266,7 +267,7 @@ def _read_prompt_toolkit_input() -> str:
     style = Style.from_dict(
         {
             "composer": "bg:#2b2b2b",
-            "composer-icon": "bg:#333333 #ffffff bold",
+            "composer-icon": "bg:#333333 #ff5c8a bold",
             "composer-input": "bg:#2b2b2b #f5f5f5",
         }
     )
@@ -353,7 +354,7 @@ def _compact_history_body(body: str, limit: int = 88) -> str:
 
 
 def _response_panel(message: str, title: str) -> Panel:
-    return Panel(message.strip(), title=title, border_style="green", padding=(1, 2))
+    return Panel(message.strip(), title=f"🌹 {title}", border_style="#ff5c8a", padding=(1, 2))
 
 
 def _message_panel(message: str, title: str, border_style: str) -> Panel:

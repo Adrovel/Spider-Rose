@@ -39,6 +39,7 @@ The terminal has the first stable app shape:
 - default agent indicator
 - command response area
 - three-row grey composer with only a terminal-native spider glyph as the input indicator
+- rose-colored spider indicator and rose/web panel accents
 - interactive multiline input that grows as content wraps or new lines are inserted
 - background in-session history
 - `/recent` command for showing terminal history on demand

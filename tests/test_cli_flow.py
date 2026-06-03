@@ -18,7 +18,8 @@ def test_terminal_mvp_flow(tmp_path, monkeypatch):
     result = runner.invoke(app, input="/run Search Nathan's LinkedIn\n/exit\n")
     assert result.exit_code == 0
     assert "Spider Rose" in result.output
-    assert "local agent workspace" in result.output
+    assert "local agent web" in result.output
+    assert "rose web shell" in result.output
     assert "Project" in result.output
     assert "Default" in result.output
     assert "🕷" in result.output
