@@ -2,9 +2,31 @@
 
 Version: 0.1.0  
 Status: Working task plan  
-Last updated: 2026-06-01
+Last updated: 2026-06-03
 
 Every task must produce a working artifact, test, or decision record.
+
+## Current Joel Priority
+
+Joel should clarify the product before more requirements are optimized or implemented.
+
+Current source of truth:
+
+- clarified decisions: `docs/developer-docs/product-decisions/QnA-Decisions.md`
+- ambiguous queue: `docs/developer-docs/product-decisions/Ambiguous-Questions.md`
+
+Joel's immediate work:
+
+- [x] Decide first real users: Joel and Mukthar, then developers.
+- [x] Decide first painful jobs: creating agents, arranging agents, and understanding flows.
+- [x] Decide first-run feeling: simplicity.
+- [x] Decide product feel: local workflow builder and agent IDE.
+- [ ] Define the simplest possible visual agent creation flow.
+- [ ] Decide which fields a non-developer must understand to create a useful agent.
+- [ ] Resolve terminal versus visual boundary from the ambiguous queue.
+- [ ] Clarify what connector edges mean before implementation: visual planning only, execution logic, or future execution structure.
+- [ ] Clarify the minimum useful workflow before workflow execution exists.
+- [ ] Define the first demo that explains Spider Rose without extra narration.
 
 ## Capacity and Working Rules
 
@@ -39,6 +61,8 @@ Joel:
 - [x] Add `README.md`.
 - [x] Add canonical developer docs.
 - [x] Create GitHub repository under Adrovel.
+- [x] Create product decision Q&A and ambiguous-question queue.
+- [x] Capture first product direction decisions.
 - [ ] Review current README pitch.
 - [ ] Approve first public repo positioning.
 - [ ] Decide whether current install copy is enough for private testers.
@@ -66,7 +90,7 @@ Target: make `spiderrose` feel like a real terminal app. Estimate: 40-55h.
 
 Joel:
 
-- [ ] Define terminal UI layout acceptance criteria.
+- [ ] Define terminal UI layout acceptance criteria after the terminal-versus-visual boundary is clearer.
 - [ ] Decide exact header fields: project, default agent, mode.
 - [ ] Decide slash command menu contents.
 - [ ] Review terminal copy for `/help`, `/run`, `/new agent`, `/visualise`, `/exit`.
