@@ -4,11 +4,15 @@ Version: 0.1.0
 Status: Active queue  
 Last updated: 2026-06-03
 
-Purpose: hold unclear product questions until Joel gives enough clarity to move them into `QnA-Decisions.md`.
+Purpose: hold unclear product questions until Joel gives enough clarity to move them into `Product-Decisions.md`.
 
 ## Queue Rule
 
 Questions in this file are not decisions. Do not implement from this file unless the implementation task is only to investigate, prototype, or clarify.
+
+## Working Vocabulary
+
+Canvas card: a visual block on the workflow canvas that represents an agent or step. In the current model, an agent card points to an underlying Markdown agent file. Moving or duplicating the card changes the visual layout, not the agent file itself.
 
 ## Queued
 
@@ -20,7 +24,7 @@ What should stay terminal-first forever, and what should move into the visual ap
 
 Current answer:
 
-Not sure.
+Partially clarified: agent creation should work as a chat-style wizard, and the user could use the terminal like this as well. The full terminal-versus-visual boundary is still unresolved.
 
 Why ambiguous:
 
@@ -33,7 +37,7 @@ Clarity needed:
 - Which actions should be available in both surfaces?
 - Which surface should a non-developer use first?
 
-Move to Q&A when:
+Move to product decision when:
 
 Joel can state the boundary as a product rule.
 

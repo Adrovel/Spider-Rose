@@ -4,7 +4,7 @@ Last updated: 2026-06-03
 
 Purpose: capture product questions Joel should answer before Spider Rose requirements are optimized, implemented, or treated as fixed.
 
-Canonical decision tracking now lives in [`docs/developer-docs/product-decisions/`](./docs/developer-docs/product-decisions/README.md). Clear answers move to Q&A decisions. Ambiguous answers stay queued until clarity arrives.
+Canonical decision tracking now lives in [`docs/developer-docs/product-decisions/`](./docs/developer-docs/product-decisions/README.md). Clear answers move to product decisions. Ambiguous answers stay queued until clarity arrives.
 
 ## Open Product Questions For Joel
 

@@ -12,22 +12,22 @@ Ambiguous questions and product decisions belong in the same Spider Rose app, un
 
 Do not treat an ambiguous product question as a decision.
 
-Questions begin in `Ambiguous-Questions.md` when the answer is unclear, partial, contradictory, or still being explored. Once Joel gives enough clarity, move the question into `QnA-Decisions.md` using the Q&A format.
+Questions begin in `Ambiguous-Questions.md` when the answer is unclear, partial, contradictory, or still being explored. Once Joel gives enough clarity, move the question into `Product-Decisions.md` using the product decision format.
 
 ## Files
 
-- `QnA-Decisions.md` — clarified product decisions in question, answer, decision, and follow-up format.
+- `Product-Decisions.md` — clarified product decisions in question, answer, decision, and follow-up format.
 - `Ambiguous-Questions.md` — queued product questions that are not ready to become decisions.
 
 ## Decision Flow
 
 1. Ask a focused product question.
-2. If the answer is clear, write it in `QnA-Decisions.md`.
+2. If the answer is clear, write it in `Product-Decisions.md`.
 3. If the answer is uncertain, write it in `Ambiguous-Questions.md`.
-4. When clarity arrives, move it from the queue into `QnA-Decisions.md`.
-5. Implementation should follow Q&A decisions, not queued ambiguous questions.
+4. When clarity arrives, move it from the queue into `Product-Decisions.md`.
+5. Implementation should follow product decisions, not queued ambiguous questions.
 
-## Q&A Format
+## Product Decisions Format
 
 ```text
 Question:

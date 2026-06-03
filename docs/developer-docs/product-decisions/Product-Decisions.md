@@ -1,10 +1,10 @@
-# Spider Rose Q&A Product Decisions
+# Spider Rose Product Decisions
 
 Version: 0.1.0  
 Status: Active decisions  
 Last updated: 2026-06-03
 
-Purpose: record clarified product decisions in Q&A format so requirements are not optimized or implemented before the product direction is understood.
+Purpose: record clarified product decisions so requirements are not optimized or implemented before the product direction is understood.
 
 ## QNA-001 - First Product Focus
 
@@ -102,3 +102,23 @@ Follow-up:
 - Use workflow-builder language for arranging and understanding flows.
 - Use agent-IDE language for creating, editing, and customizing agents.
 
+## QNA-006 - Agent Creation Interaction
+
+Question:
+
+Should agent creation feel like a simple form, a chat-style wizard, a canvas card you fill in, or a mix of form and canvas card?
+
+Answer:
+
+A chat-style wizard, not a form. The user could use the terminal like this as well.
+
+Decision:
+
+Spider Rose agent creation should start as a guided chat-style wizard. The same interaction model should be possible in the terminal and in the visual app. The product should avoid making first-time users fill a static form before they understand what the agent is.
+
+Follow-up:
+
+- Define the wizard questions for creating the first useful agent.
+- Make the visual app feel conversational rather than form-heavy.
+- Explore a terminal wizard flow for `/new agent` that asks one question at a time.
+- Keep the generated result editable after the wizard finishes.

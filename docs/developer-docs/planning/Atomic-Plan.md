@@ -12,7 +12,7 @@ Joel should clarify the product before more requirements are optimized or implem
 
 Current source of truth:
 
-- clarified decisions: `docs/developer-docs/product-decisions/QnA-Decisions.md`
+- clarified decisions: `docs/developer-docs/product-decisions/Product-Decisions.md`
 - ambiguous queue: `docs/developer-docs/product-decisions/Ambiguous-Questions.md`
 
 Joel's immediate work:
@@ -21,7 +21,8 @@ Joel's immediate work:
 - [x] Decide first painful jobs: creating agents, arranging agents, and understanding flows.
 - [x] Decide first-run feeling: simplicity.
 - [x] Decide product feel: local workflow builder and agent IDE.
-- [ ] Define the simplest possible visual agent creation flow.
+- [x] Decide agent creation interaction: chat-style wizard, not a form.
+- [ ] Define the chat-style wizard questions for creating the first useful agent.
 - [ ] Decide which fields a non-developer must understand to create a useful agent.
 - [ ] Resolve terminal versus visual boundary from the ambiguous queue.
 - [ ] Clarify what connector edges mean before implementation: visual planning only, execution logic, or future execution structure.
