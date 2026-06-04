@@ -144,3 +144,29 @@ Follow-up:
 - Show an agent-created state and agent summary after the wizard completes.
 - Include an edit/review step before saving the final agent.
 - Make the same question flow usable in the terminal wizard and visual app wizard.
+
+## QNA-008 - Terminal Agent Wizard Behavior
+
+Question:
+
+How should `/new agent` behave in the terminal wizard?
+
+Answer:
+
+`/new agent researcher` should open the wizard with the agent name prefilled. Spider Rose should be able to extract details from the user's natural language paragraph instead of forcing the user to paste structured fields. At the review step, the options should be Save agent, Edit answer, Start over, and Cancel.
+
+Decision:
+
+The terminal agent creation flow should be conversational and extraction-based. The command should not force users into a rigid form. If the user provides an agent name in the command, Spider Rose should keep that name and continue the wizard from there. The user can describe the agent naturally, and Spider Rose should extract what the agent should do, what it should know, expected outputs, and tools. Before saving, Spider Rose should show a review screen with Save agent, Edit answer, Start over, and Cancel.
+
+Rejected alternative:
+
+The main alternative was a strict step-by-step wizard that asks one field at a time and requires structured answers. That is not the preferred default because Spider Rose should feel simple and intelligent enough to understand a natural description.
+
+Follow-up:
+
+- Define the exact terminal copy for `/new agent`.
+- Support `/new agent <name>` as a wizard start with the name prefilled.
+- Let users describe the agent naturally and extract agent details from that description.
+- Show a review state before saving.
+- Review actions: Save agent, Edit answer, Start over, Cancel.

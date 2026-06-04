@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Working task plan  
-Last updated: 2026-06-03
+Last updated: 2026-06-04
 
 Every task must produce a working artifact, test, or decision record.
 
@@ -24,7 +24,7 @@ Joel's immediate work:
 - [x] Decide agent creation interaction: chat-style wizard, not a form.
 - [x] Define the chat-style wizard questions for creating the first useful agent.
 - [x] Decide which fields a non-developer must understand to create a useful agent.
-- [ ] Define exact terminal wizard command behavior for `/new agent`.
+- [x] Define exact terminal wizard command behavior for `/new agent`.
 - [ ] Define exact visual wizard entry point and review screen.
 - [ ] Resolve terminal versus visual boundary from the ambiguous queue.
 - [ ] Clarify what connector edges mean before implementation: visual planning only, execution logic, or future execution structure.
