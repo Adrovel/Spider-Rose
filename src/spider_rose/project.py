@@ -53,7 +53,7 @@ def init_project(path: Path, force: bool = False) -> list[Path]:
         target.mkdir(parents=True, exist_ok=True)
         created.append(target)
 
-    for preloaded_agent in ["researcher", "hello"]:
+    for preloaded_agent in ["google-careers-scraper"]:
         agent_path = root / "agents" / f"{preloaded_agent}.md"
         if force or not agent_path.exists():
             agent_path.write_text(default_agent_markdown(preloaded_agent), encoding="utf-8")
@@ -64,7 +64,7 @@ def init_project(path: Path, force: bool = False) -> list[Path]:
         config.write_text(
             """[project]
 name = "Spider Rose Workflow"
-default_agent = "researcher"
+default_agent = "google-careers-scraper"
 
 [runtime]
 mode = "local"
@@ -102,7 +102,7 @@ def get_default_agent(root: Path) -> str:
         agents = sorted((root / "agents").glob("*.md"))
         if len(agents) == 1:
             return agents[0].stem
-        raise ProjectError("No default agent set. Create one with `spiderrose new agent researcher`.")
+        raise ProjectError("No default agent set. Create one with `spiderrose new agent google-careers-scraper`.")
     _require_agent(root, default_agent)
     return default_agent
 

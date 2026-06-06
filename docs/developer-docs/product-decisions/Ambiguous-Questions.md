@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Active queue  
-Last updated: 2026-06-03
+Last updated: 2026-06-04
 
 Purpose: hold unclear product questions until Joel gives enough clarity to move them into `Product-Decisions.md`.
 
@@ -47,15 +47,15 @@ Question:
 
 What is the minimum useful agent workflow before workflow execution exists?
 
-Why ambiguous:
+Current answer:
 
-Spider Rose may create value through planning, visual arrangement, and understanding flows before actual workflow execution. The minimum useful flow still needs a clear user story.
+Partially clarified on 2026-06-04: the minimum useful workflow should be a visual execution chain, not only a planning diagram. The concrete example is Google Careers web scraping -> stored in RAG/database -> scheduled run -> WhatsApp notification.
 
-Clarity needed:
+Remaining clarity needed:
 
-- What should a user be able to create?
-- What should a user be able to understand?
-- What output proves the workflow was useful without execution?
+- What is the smallest storage layer for the first version: local JSON, SQLite, vector DB, or Markdown artifact?
+- What should the first scheduler support: manual run, interval, cron-like text, or daily time?
+- What should WhatsApp sending use first: manual copy, local gateway, WhatsApp Cloud API, or OpenClaw channel?
 
 ### PQ-008 - Connector Edge Meaning
 
@@ -63,15 +63,15 @@ Question:
 
 Should connector edges be only visual planning at first, or should they immediately imply execution logic?
 
-Why ambiguous:
+Current answer:
 
-Connector edges can be visual explanation, future execution structure, or both. Treating them as executable too early may complicate the MVP.
+Clarified on 2026-06-04: connectors should represent the active workflow. They are not just explanatory lines. A connector means output/control flows from one executable block into another.
 
-Clarity needed:
+Remaining clarity needed:
 
-- Are edges planning-only in Phase 1?
-- If execution is later, should edge data already be shaped for it?
-- How should the UI explain edge meaning?
+- What connector types exist first: data, schedule trigger, message trigger, or all one simple connector?
+- How should the UI show whether a connector has run successfully?
+- How much validation should happen before a user can run a connected workflow?
 
 ### PQ-009 - Markdown Agent Meaning
 

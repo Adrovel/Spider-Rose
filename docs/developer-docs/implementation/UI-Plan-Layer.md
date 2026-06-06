@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Active UI direction  
-Last updated: 2026-06-01
+Last updated: 2026-06-04
 
 Purpose: define the visual and interaction layers without overbuilding the product.
 
@@ -58,7 +58,7 @@ Design:
 - no marketing content
 - no decorative panels
 
-## Layer 3 - Workflow Canvas
+## Layer 3 - Visual Workflow Grid
 
 Route:
 
@@ -66,12 +66,12 @@ Route:
 /workflow
 ```
 
-Purpose for now:
+Product purpose:
 
-- movable agent cards
-- directional connector edges between cards
-- visual planning surface
-- Excalidraw-like freedom without full workflow complexity
+- reusable workflow blocks on a grid
+- directional connector edges between blocks
+- active execution surface after approved implementation
+- clear Lego-style composition without hiding how data moves
 
 Current behavior:
 
@@ -86,12 +86,27 @@ Current behavior:
 
 Required next behavior:
 
-- connect one card to another
+- define the first fundamental block library
+- connect one block to another
 - render directional edges
 - save edges with the canvas layout
 - edit or remove edges
+- show whether a connector carries data, a trigger, or both
+- support the Google Careers learning workflow as the first education scenario
 
-Not included yet:
+Fundamental block candidates:
+
+- Input
+- Website Source
+- Web Scraper
+- Extractor
+- Store/RAG
+- Scheduler
+- Formatter
+- WhatsApp Sender
+- Agent
+
+Not included until approved:
 
 - execution order
 - run logs
@@ -102,11 +117,11 @@ Not included yet:
 
 Only add this after the canvas is useful.
 
-Future behavior:
+Future behavior after atomic-plan approval:
 
 - mark start agent
 - save workflow definitions
-- run a workflow from terminal
+- run a workflow from the visual grid
 - inspect each agent output
 
 ## UI Rule
@@ -125,12 +140,9 @@ Storybook covers the visible UI pieces:
 
 - sidebar tabs
 - agent editor
-- infinite canvas
 - floating add control
-- zoom controls
 - agent picker
 - agent details popup
-- tools panel
 
 Run:
 

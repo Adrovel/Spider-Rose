@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Working feature map  
-Last updated: 2026-06-01
+Last updated: 2026-06-05
 
 ## Implemented Features
 
@@ -10,24 +10,25 @@ Last updated: 2026-06-01
 |---|---|---|
 | Launch terminal shell | `spiderrose` | implemented |
 | Launch visual agent editor | `/visualise` | implemented |
-| Preload hello agent | automatic on first run | implemented |
-| Preload researcher agent | automatic on first run | implemented |
-| Create Markdown agent | `/new agent researcher` | implemented |
+| Preload Google Careers scraper agent | automatic on first run | implemented |
+| Create Markdown agent | `/new agent google-careers-scraper` | implemented |
 | Run default agent | `/run Search Nathan's LinkedIn` | implemented |
-| Move agents on workflow canvas | `/workflow` in the visual app | implemented |
 | Click agent canvas blocks | visual app | implemented |
 | Duplicate visual agent blocks | visual app | implemented |
-| Inspect Markdown/LangGraph/Tools per block | visual app | implemented |
+| Inspect Markdown/LangGraph per block | visual app | implemented |
 | Component stories | `npm run storybook` | implemented |
 
 ## Required Next Features
 
-Spider Rose stays local-first and terminal-first. The current priority is making the terminal shell feel like a real app, then making the visual canvas show simple flow between agents.
+Spider Rose stays local-first. The clarified product priority is a visual execution grid made from reusable fundamental blocks. Implementation remains atomic-plan gated and requires Joel and Mukthar approval.
 
 | Feature | Surface | Status |
 |---|---|---|
 | Persistent terminal history | `spiderrose` shell | required next |
-| Connector edges between agent cards | `/workflow` canvas | required next |
+| Fundamental block library definition | product/education docs | required next |
+| Typed connector model | `/workflow` canvas | required next |
+| Connector edges between workflow blocks | `/workflow` canvas | required next |
+| Google Careers learning workflow | education + atomic plan | required next |
 | Custom agent library | terminal and visual app | planned after core editor |
 
 ## Terminal UI Requirement
@@ -56,17 +57,38 @@ Deferred behavior:
 - run history browser
 - persistent message history
 
+## Fundamental Block Requirement
+
+Spider Rose should not create a new block type for every website or scenario.
+
+First block candidates:
+
+- Input
+- Website Source
+- Web Scraper
+- Extractor
+- Store/RAG
+- Scheduler
+- Formatter
+- WhatsApp Sender
+- Agent
+
+Example:
+
+`Web Scraper` is fundamental. `Google Careers` is an input or configuration.
+
 ## Connector Edge Requirement
 
-The workflow canvas should visually show flow between agents.
+The workflow canvas should visually show active flow between blocks.
 
 Required behavior:
 
-- connect one agent card to another
+- connect one workflow block to another
 - render directional connector edges
 - persist card positions and edge relationships
-- keep cards as references to `agents/*.md`
-- avoid executing the workflow until runtime support exists
+- define whether each connector carries data, a trigger, or both
+- keep existing agent cards as references to `agents/*.md`
+- use connectors as the execution model after approval
 
 Deferred behavior:
 
@@ -74,6 +96,22 @@ Deferred behavior:
 - workflow validation
 - terminal workflow execution
 - LangGraph compilation
+
+## Learning Workflow Requirement
+
+The first product-clarity workflow is:
+
+```text
+Input
+  -> Website Source: Google Careers
+  -> Web Scraper
+  -> Extractor
+  -> Store/RAG
+  -> Formatter
+  -> WhatsApp Sender
+```
+
+The purpose is to educate Joel and Mukthar, then approve an implementation plan. It is not permission to add scraper code directly.
 
 ## Custom Agent Library Requirement
 
@@ -92,7 +130,7 @@ Possible commands:
 
 ```text
 /library
-/library add researcher
+/library add google-careers-scraper
 /new agent review-bot --from-library reviewer
 ```
 
@@ -100,7 +138,7 @@ Suggested local shape:
 
 ```text
 agent-library/
-  researcher.md
+  google-careers-scraper.md
   planner.md
   reviewer.md
 ```
@@ -115,7 +153,6 @@ These are useful later, but not part of the current implementation plan:
 - validation command
 - canvas sticky notes
 - canvas inspector panel
-- RAG
 - MCP execution
 
 ## User Promise
@@ -130,7 +167,7 @@ Inside Spider Rose:
 
 ```text
 /visualise
-/new agent researcher
+/new agent google-careers-scraper
 /run Search Nathan's LinkedIn
 ```
 
@@ -140,7 +177,7 @@ Only one definition format is active in Phase 1:
 
 - Markdown agents in `agents/*.md`
 
-Workflow execution formats are paused. Visual connector edges are now part of the required canvas experience.
+Workflow execution formats are paused until approved. Visual connector edges and fundamental workflow blocks are now part of the required product direction.
 
 ## Non-Goals
 

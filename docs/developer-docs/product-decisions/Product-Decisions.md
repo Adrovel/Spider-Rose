@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Active decisions  
-Last updated: 2026-06-03
+Last updated: 2026-06-04
 
 Purpose: record clarified product decisions so requirements are not optimized or implemented before the product direction is understood.
 
@@ -153,7 +153,7 @@ How should `/new agent` behave in the terminal wizard?
 
 Answer:
 
-`/new agent researcher` should open the wizard with the agent name prefilled. Spider Rose should be able to extract details from the user's natural language paragraph instead of forcing the user to paste structured fields. At the review step, the options should be Save agent, Edit answer, Start over, and Cancel.
+`/new agent google-careers-scraper` should open the wizard with the agent name prefilled. Spider Rose should be able to extract details from the user's natural language paragraph instead of forcing the user to paste structured fields. At the review step, the options should be Save agent, Edit answer, Start over, and Cancel.
 
 Decision:
 
@@ -170,3 +170,88 @@ Follow-up:
 - Let users describe the agent naturally and extract agent details from that description.
 - Show a review state before saving.
 - Review actions: Save agent, Edit answer, Start over, Cancel.
+
+## QNA-009 - Visual Workflow Execution Model
+
+Question:
+
+What does the visual element do in Spider Rose?
+
+Answer:
+
+The app should work like Lego-style blocks on a grid. Each block is a functional unit in the workflow. A web scraper block connects to a website such as Google Careers, scrapes jobs, and creates an output. That output can connect to a RAG/database block that stores the result. Another block can be a scheduler that decides how frequently the workflow runs. Another block can be a WhatsApp block that sends scheduled messages. The blocks connect visually, and the visual flow is the active execution model.
+
+Decision:
+
+Spider Rose's visual canvas should become the primary workflow execution surface. Blocks are not only diagrams. A block represents an executable capability, data store, scheduler, communication channel, or agent. Connectors define how output moves from one block to the next.
+
+Follow-up:
+
+- Rename product language from only "agent cards" toward workflow blocks where needed.
+- Define first block types: Web Scraper, Website Source, RAG/DB Store, Scheduler, WhatsApp Sender, and Agent.
+- Define connector meaning as data/control flow between executable blocks.
+- Keep the first working workflow concrete: Google Careers scraper -> RAG/DB store -> scheduler -> WhatsApp message.
+- Design the canvas as a grid where connected blocks show the actual running workflow.
+
+## QNA-010 - Implementation Approval Gate And Product Ownership
+
+Question:
+
+When should Spider Rose code changes happen?
+
+Answer:
+
+No actual code changes should happen without the work going through the atomic-plan phase. Mukthar may review and challenge implementation details, but Joel owns final product decisions and can override Mukthar on product direction.
+
+Decision:
+
+Spider Rose implementation must be plan-gated. Product scenarios and feature ideas should first become atomic-plan items. Joel is the final approval owner for product direction. Mukthar's review is important for implementation quality, technical concerns, and TUI work, but Mukthar product decisions may need Joel approval and Joel usually overrides on product calls.
+
+Follow-up:
+
+- Treat future scenario walkthroughs as product discovery, not implementation permission.
+- Add proposed features to the atomic plan before touching runtime, UI, tests, or agent files.
+- Keep unapproved experiments out of the tracked implementation unless explicitly approved.
+- Record whether a slice is Joel-approved, Mukthar-reviewed, or still pending technical review.
+
+## QNA-011 - Fundamental Block Library
+
+Question:
+
+Should every workflow block be a new custom block?
+
+Answer:
+
+No. Spider Rose should have fundamental blocks. A Web Scraper block can be a fundamental reusable block, with sites such as Google Careers provided as inputs.
+
+Decision:
+
+Spider Rose should build around reusable fundamental block types instead of creating a new block type for every specific site or scenario. Specific workflows should configure these blocks through inputs, connectors, and saved settings.
+
+Follow-up:
+
+- Define a first fundamental block library.
+- Treat Google Careers as an input/configuration for a Web Scraper block, not necessarily a separate permanent block type.
+- Use scenario walkthroughs to decide which block types are fundamental and which details are inputs.
+
+## QNA-012 - Mock Data Boundary
+
+Question:
+
+Should the first Google Careers workflow demo use mock data?
+
+Answer:
+
+Joel is conflicted. Mock data has two problems: it deviates from actual problem solving, and the actual task is small enough that mocking can feel unnecessary. Ultimately Spider Rose needs to scrape realistically. Joel is okay with mock data for this first demo, but this should not become the default approach. Later demos may skip mock data and go directly to real integrations.
+
+Decision:
+
+Mock data is acceptable for the first Google Careers visual demo only as a fast way to validate the block flow, run states, connector meaning, and right-side inspector. It should not become a general product habit or a substitute for solving the real workflow.
+
+Follow-up:
+
+- Keep the mock demo clearly labeled as a visual/product demo.
+- Do not let mock data define scraper behavior.
+- Move to real Google Careers scraping as soon as the visual workflow shape is validated.
+- For small workflows, consider real data earlier instead of mocking by default.
+- Product principle added: question mock data before using it; Joel is skeptical because it can drift away from actual problem solving.

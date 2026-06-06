@@ -1,6 +1,6 @@
 # Spider Rose
 
-Spider Rose is a developer-first, local agent workspace for creating, editing, arranging, and running Markdown agents.
+Spider Rose is a developer-first, local visual workflow workspace for composing executable blocks and agents.
 
 ## Identity
 
@@ -8,21 +8,23 @@ Spider Rose is a developer-first, local agent workspace for creating, editing, a
 |---|---|
 | Product | Spider Rose |
 | CLI | `spiderrose` |
-| Purpose | Create, edit, arrange, and run local Markdown agents from the terminal and visual app |
+| Purpose | Compose reusable workflow blocks, connect them visually, and run local agent-powered workflows |
 | Primary users | AI engineers, software engineers, LangGraph users, open-source agent builders |
 | Owners | Joel and Mukthar |
-| Status | MVP scaffold, CLI-first |
+| Status | MVP scaffold, product discovery and atomic-plan gated implementation |
 
 ## Direction
 
-Spider Rose starts as files, terminal commands, and a local visual editor:
+Spider Rose starts as files, terminal commands, and a local visual grid:
 
 - Markdown agents under `agents/`
 - local project config in `spider-rose.toml`
 - canvas layout in `workflow-layout.json`
+- future workflow blocks such as Input, Website Source, Web Scraper, Extractor, Store/RAG, Scheduler, Formatter, WhatsApp Sender, and Agent
 
-Visualization is the Phase 1 app surface for creating, editing, inspecting, and arranging agent cards.
-Visual connector edges are required next so the canvas can show intended flow. Workflow execution is intentionally paused until a later phase.
+Visualization is the intended active execution surface. Blocks should connect like Lego pieces on a grid, with connectors carrying output/control flow from one block to the next.
+
+Implementation remains gated: no code changes or feature additions should happen until the work is captured in the atomic plan and approved by Joel and Mukthar.
 
 ## Non-Goals
 
@@ -34,5 +36,4 @@ Visual connector edges are required next so the canvas can show intended flow. W
 - Kubernetes
 - distributed execution
 - enterprise permissions
-- workflow execution
 - run history/log browsing

@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Active team plan  
-Last updated: 2026-06-03
+Last updated: 2026-06-05
 
 ## Capacity
 
@@ -18,6 +18,8 @@ Combined planning capacity is 40 hours/week. Plans should assume small, independ
 ## Joel
 
 Joel owns product direction, architecture shape, CLI ergonomics, and final project quality.
+
+Joel is the final product decision owner. Mukthar can review, challenge, and propose product ideas, but Mukthar's product decisions may need Joel approval. If Joel and Mukthar disagree on product direction, Joel usually overrides.
 
 Best tasks:
 
@@ -37,6 +39,8 @@ Non-blocking work:
 ## Mukthar
 
 Mukthar owns scoped implementation work, test coverage, documentation upkeep, and visualisation support.
+
+Mukthar owns implementation quality within approved product boundaries. For product direction, Mukthar should raise concerns and alternatives, then defer to Joel's final decision.
 
 Best tasks:
 

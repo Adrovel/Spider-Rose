@@ -72,9 +72,8 @@ When the user runs `spiderrose` in a new folder:
 
 1. Create `agents/`.
 2. Create `memory/`.
-3. Create `agents/hello.md`.
-4. Create `agents/researcher.md`.
-5. Create `spider-rose.toml` with `default_agent = "researcher"`.
+3. Create `agents/google-careers-scraper.md`.
+4. Create `spider-rose.toml` with `default_agent = "google-careers-scraper"`.
 5. Print the project path.
 6. Show the project header and slash-command prompt.
 
@@ -85,24 +84,22 @@ The user should not need a separate `init` command in Phase 1.
 Input:
 
 ```text
-/new agent researcher
+/new agent google-careers-scraper
 ```
 
 Output:
 
 ```text
-Created agent agents/researcher.md
+Created agent agents/google-careers-scraper.md
 ```
 
 Storage:
 
 ```text
-agents/researcher.md
+agents/google-careers-scraper.md
 ```
 
-New projects already include `researcher`, so user-created agents do not replace the default automatically unless the user changes the default in the visual editor.
-
-New projects also include `hello` as a lightweight onboarding agent.
+New projects currently include `google-careers-scraper` as the default while the two-block demo is the immediate priority.
 
 ## Run Flow
 
@@ -134,7 +131,7 @@ Behavior:
 - open the browser when possible
 - show agent creation and editing
 - show the workflow canvas
-- support visual connector edges between agent cards
+- support visual connector edges between workflow blocks
 - show where each agent file is stored
 
 ## Future Terminal Ideas

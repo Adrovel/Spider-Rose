@@ -34,41 +34,23 @@ def title_from_slug(slug: str) -> str:
 def default_agent_markdown(name: str) -> str:
     slug = slugify_agent_name(name)
     title = title_from_slug(slug)
-    if slug == "researcher":
-        return """# Researcher Agent
+    if slug == "google-careers-scraper":
+        return """# Google Careers Scraper Agent
 
 Goal:
-Find accurate information and turn a user task into a clear starting point.
+Scrape Google Careers search results and return a small, readable list of matching jobs.
 
 Instructions:
-- Identify what the user is asking for.
-- Pull out names, entities, platforms, and constraints.
-- Say what information is known and what is still missing.
-- Return concise, structured output.
+- Use the user's task as the search query.
+- Treat text after "in" as the location when the user writes a task like "software engineer in India".
+- Return job title, location, level, and minimum qualifications.
+- Do not invent jobs when the Careers page cannot be fetched or parsed.
 
 Tools:
-- web_search
+- google_careers_scraper
 
 Output:
-research_summary
-"""
-    if slug == "hello":
-        return """# Hello Agent
-
-Goal:
-Greet the user, explain Spider Rose briefly, and help them take their first action.
-
-Instructions:
-- Keep the response short and friendly.
-- Mention that agents are stored as Markdown files.
-- Suggest creating or editing an agent when the user is ready.
-- Avoid technical jargon unless the user asks for it.
-
-Tools:
-- none
-
-Output:
-hello_message
+google_careers_jobs
 """
 
     return f"""# {title} Agent

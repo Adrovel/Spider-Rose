@@ -32,7 +32,7 @@ Why LangGraph?
 
 Context:
 
-Spider Rose is local-first, terminal-first, and Markdown-agent-first. LangGraph is currently mentioned as a later runtime path, but the project should be clear on why it is worth adding instead of keeping execution simpler or using another runner.
+Spider Rose is local-first, visual-workflow-first, and file-readable. LangGraph is currently mentioned as a later runtime path, but the project should be clear on why it is worth adding instead of keeping execution simpler or using another runner.
 
 Answer:
 

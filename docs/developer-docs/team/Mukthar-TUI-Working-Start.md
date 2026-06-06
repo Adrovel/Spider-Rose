@@ -93,7 +93,7 @@ Mukthar should maintain a short comparison note before major TUI changes. Each n
 - Spider Rose implication
 - one small experiment to try
 
-No TUI feature should be implemented only because another tool has it. The feature must survive the Spider Rose principles: terminal-first, local-first, Markdown-agent-first, and stable before workflow complexity.
+No TUI feature should be implemented only because another tool has it. The feature must survive the Spider Rose principles: local-first, visual-workflow-first, file-readable, and approved through the atomic plan before workflow complexity is implemented.
 
 ## Spider Rose Code Map
 

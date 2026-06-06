@@ -2,11 +2,13 @@
 
 Version: 0.1.0  
 Status: Working implementation plan  
-Last updated: 2026-06-01
+Last updated: 2026-06-05
 
 ## Planning Assumptions
 
-Spider Rose is local-first and terminal-first.
+Spider Rose is local-first with a terminal entry point and a visual workflow grid as the intended active execution surface.
+
+Implementation is atomic-plan gated. No feature code should be added until Joel and Mukthar approve the relevant atomic-plan item.
 
 Team capacity:
 
@@ -17,13 +19,23 @@ Team capacity:
 
 Combined capacity is 40 hours/week. Each phase is estimated in focused engineering hours, not calendar hours. Calendar estimates assume both contributors can work without blocking each other.
 
+Immediate phase shift:
+
+- Make the current two-block Google Careers workflow demoable.
+- Use the current two blocks as the first small web.
+- Treat agents as possible **spiders** and workflows as possible **webs** in product language.
+- Improve functionality first, especially real Google Careers scraping.
+- After functionality works, refine UI component by component: progress chips, blocks, connectors, and the right sidebar.
+- Demo to Fahim first, then Alfeen, Don, Christie, Prithvi, Mubaris, Pranav, Joel Sam, Gowri, Athul, Mevit, Varsha, Reshma, Nithin Noushad, Joel, and others.
+- Keep GitHub, LinkedIn, and content creator outreach focused on the demo story.
+
 Features not active now:
 
 - run logs and run artifacts
 - validation command
 - canvas sticky notes and inspector
-- RAG
 - MCP execution
+- top-level Tools surface
 
 ## Publicity Trigger
 
@@ -32,12 +44,12 @@ Publicise Spider Rose when the plan reaches 40% completion.
 At 40%, the app should have:
 
 - local project initialization
-- terminal-first shell
+- terminal entry shell
 - usable terminal UI
 - Markdown agent creation
 - default-agent run path
 - local visual editor
-- workflow canvas with basic visual flow
+- visual workflow grid with fundamental block and connector direction
 
 Marketing reminder at 40%:
 
@@ -47,13 +59,16 @@ Marketing reminder at 40%:
 - share the repo with a small developer audience first
 - collect feedback before broader launch
 
+Current demo/outreach plan: [Demo And Outreach Plan](./Demo-and-Outreach-Plan.md)
+
 ## Phase Summary
 
 | Phase | Focus | Estimate | Calendar at 40h/week | Completion weight |
 |---|---|---:|---:|---:|
 | 0 | Product spine and existing MVP scaffold | 8-12h remaining | 2-3 days | 15% |
+| 1A | Demoable two-block web | 8-16h | 1-2 days | immediate |
 | 1 | Terminal UI | 40-55h | 1-1.5 weeks | 25% |
-| 2 | Visual flow edges | 30-45h | 1 week | 20% |
+| 2 | Visual workflow blocks and typed connector edges | 35-55h | 1-1.5 weeks | 20% |
 | 3 | Agent editing and defaults | 25-35h | 1 week | 15% |
 | 4 | Custom agent library and templates | 35-50h | 1-1.5 weeks | 15% |
 | 5 | Later runtime path | 50-80h | 1.5-2 weeks | 10% |
@@ -113,34 +128,70 @@ Mukthar lane:
 - wire message history and input behavior
 - add parser and display tests
 
-## Phase 2 - Visual Flow Edges
+## Phase 1A - Demoable Two-Block Web
 
-Goal: show intended flow between agents on the visual canvas.
+Goal: make the current Google Careers two-block web demoable before expanding the product.
 
 Work:
 
-- connector edges between agent cards
-- directional edge rendering
-- edge persistence in the canvas layout model
-- edge edit/delete interactions
-- default workflow selection
+- keep the demo focused on the two existing blocks
+- replace mock results with real Google Careers scraping
+- handle scrape failure visibly and honestly
+- keep the feature cheap for a developer installing the SDK/CLI in a Linux terminal
+- show Joel the resource-use cost before implementation approval
+- remove the top-level Tools feature surface for now
+- keep unrelated agent cards out of the demo view
+- after real scraping works, improve progress chips
+- after real scraping works, improve the two blocks
+- after real scraping works, improve the connector
+- after real scraping works, improve the right sidebar
+- prepare GitHub, LinkedIn, and content creator demo material
 
-Current bridge:
-
-- `/workflow` now exists as a movable planning canvas.
-- Cards can be positioned before execution is introduced.
-- Edges should show planned flow only; they should not execute workflows yet.
-
-Estimate: 30-45h.
+Estimate: 8-16h.
 
 Joel lane:
 
-- decide edge labels and flow semantics
+- review the demo story
+- decide user-facing words for spiders and webs
+- approve what counts as demoable
+- prepare demo audience feedback questions
+
+Mukthar lane:
+
+- keep the UI focused on the two-block web
+- polish block/link/inspector behavior after approval
+- keep tests updated
+
+## Phase 2 - Visual Workflow Blocks And Edges
+
+Goal: define and begin the active visual workflow model with reusable fundamental blocks and typed connector edges.
+
+Work:
+
+- first fundamental block library: Input, Website Source, Web Scraper, Extractor, Store/RAG, Scheduler, Formatter, WhatsApp Sender, Agent
+- typed connector semantics: data, trigger, or both
+- connector edges between workflow blocks
+- directional edge rendering
+- edge persistence in the canvas layout model
+- edge edit/delete interactions
+- Google Careers learning workflow as the first approved education scenario
+
+Current bridge:
+
+- `/workflow` now exists as a movable canvas.
+- Cards can be positioned before executable workflow runtime is introduced.
+- Edges should be shaped for active execution semantics, but runtime implementation still needs atomic-plan approval.
+
+Estimate: 35-55h.
+
+Joel lane:
+
+- decide first fundamental blocks and connector semantics
 - review canvas behavior
 
 Mukthar lane:
 
-- implement card-to-card connections
+- implement approved block-to-block connections
 - persist edges in `workflow-layout.json`
 - add edit/delete behavior for edges
 

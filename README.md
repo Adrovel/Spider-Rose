@@ -1,10 +1,12 @@
 # Spider Rose
 
-Terminal-first agent creation and execution for developers.
+Local visual workflow blocks for developer agents and automation.
 
-Spider Rose lets users create Markdown agents visually, create agents from the terminal, run the default agent from the terminal, and arrange agent cards on a visual canvas.
+Spider Rose lets users compose reusable workflow blocks on a visual grid, connect those blocks, and keep the underlying project local and inspectable.
 
-The next product requirements are persistent terminal history and connector edges between agent cards. Workflow execution is archived for a later phase.
+The current MVP still includes a terminal shell, Markdown agents, and a local visual app. The clarified product direction is a Lego-style visual execution surface with fundamental blocks such as Input, Website Source, Web Scraper, Extractor, Store/RAG, Scheduler, Formatter, WhatsApp Sender, and Agent.
+
+No feature implementation should happen until the work is captured in the atomic plan and approved by Joel and Mukthar.
 
 ## Install
 
@@ -51,7 +53,7 @@ Inside Spider Rose:
 
 ```text
 /visualise
-/new agent researcher
+/new agent google-careers-scraper
 /run Search Nathan's LinkedIn
 /clear
 /exit
@@ -69,6 +71,7 @@ spider-rose.toml
 
 Core product questions live in [`idea.md`](./idea.md).
 Canonical developer docs live in [`docs/developer-docs/`](./docs/developer-docs/README.md), grouped by product, implementation, planning, and team.
+Education docs live in [`docs/developer-docs/education/`](./docs/developer-docs/education/README.md), including the Google Careers workflow learning scenario.
 Research notes live in [`docs/research-docs/`](./docs/research-docs/README.md).
 
 ## Storybook
@@ -82,4 +85,4 @@ npm run build-storybook
 
 ## Status
 
-The MVP is intentionally local-first and terminal-first. The runtime currently executes one default Markdown-defined agent deterministically. The terminal shell now renders a project header, default-agent context, command panels, and run output panels. Persistent history and visual flow edges are required next; logs, validation, LangGraph execution, workflow execution, and multi-agent handoffs are future features.
+The MVP is local-first. The runtime currently executes one default Markdown-defined agent deterministically, and the visual app edits and arranges agent cards. Product work is now focused on fundamental block definitions, typed visual connectors, and the Google Careers learning workflow before runtime implementation.

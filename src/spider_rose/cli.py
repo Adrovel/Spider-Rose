@@ -101,7 +101,7 @@ def main(ctx: typer.Context) -> None:
 
 @app.command("new")
 def new(kind: str, name: str, force: bool = False) -> None:
-    """Create a new agent, for example `spiderrose new agent researcher`."""
+    """Create a new agent, for example `spiderrose new agent google-careers-scraper`."""
     if kind != "agent":
         raise typer.BadParameter("Phase 1 only supports `spiderrose new agent <name>`.")
     root = _root()

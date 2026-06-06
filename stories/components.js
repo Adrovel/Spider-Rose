@@ -2,11 +2,10 @@ export function SidebarTabs({ active = "agents" } = {}) {
   return html(`
     <aside class="sr-sidebar" style="max-width: 320px;">
       <h1>Spider Rose</h1>
-      <div class="sr-muted">Simple agents. Movable canvas.</div>
+      <div class="sr-muted">Two-block web demo.</div>
       <div class="sr-tabs">
         ${tab("Agents", active === "agents")}
         ${tab("Workflow", active === "workflow")}
-        ${tab("Tools", active === "tools")}
       </div>
     </aside>
   `);
@@ -17,25 +16,25 @@ export function AgentEditor() {
     <section class="sr-sidebar" style="max-width: 420px;">
       <h1>Agents</h1>
       <div class="sr-row">
-        <input class="sr-input" value="researcher" />
+        <input class="sr-input" value="google-careers-scraper" />
         <button class="sr-button">Create</button>
       </div>
-      <button class="sr-agent-list-button sr-agent-list-button-active">researcher</button>
-      <p class="sr-muted">Stored at agents/researcher.md</p>
-      <textarea class="sr-editor"># Researcher Agent
+      <button class="sr-agent-list-button sr-agent-list-button-active">google-careers-scraper</button>
+      <p class="sr-muted">Stored at agents/google-careers-scraper.md</p>
+      <textarea class="sr-editor"># Google Careers Scraper Agent
 
 Goal:
-Find accurate information.
+Scrape Google Careers search results and return a small, readable list of matching jobs.
 
 Instructions:
-- Identify the user task.
-- Return concise output.
+- Use the user's task as the search query.
+- Return job title, location, level, and minimum qualifications.
 
 Tools:
-- web_search
+- google_careers_scraper
 
 Output:
-research_summary</textarea>
+google_careers_jobs</textarea>
       <div class="sr-row" style="margin-top: 10px;">
         <button class="sr-button-secondary">Set Default</button>
         <button class="sr-button">Save</button>
@@ -48,9 +47,7 @@ export function WorkflowCanvas() {
   return html(`
     <main class="sr-stage">
       ${FloatingAddButton()}
-      ${ZoomControls()}
-      ${AgentCard({ name: "researcher", description: "Find accurate information from reliable sources.", x: 80, y: 90 })}
-      ${AgentCard({ name: "researcher", description: "Duplicate canvas block using the same Markdown agent.", x: 340, y: 210 })}
+      ${AgentCard({ name: "google-careers-scraper", description: "Scrape Google Careers search results and return matching jobs.", x: 80, y: 90 })}
       ${AgentDetailsPopover()}
     </main>
   `);
@@ -73,35 +70,14 @@ export function FloatingAddButton() {
   `;
 }
 
-export function ZoomControls() {
-  return `
-    <div class="sr-floating sr-floating-right">
-      <button class="sr-button-secondary sr-icon-button" title="Zoom in">+</button>
-      <div class="sr-zoom-label">100%</div>
-      <button class="sr-button-secondary sr-icon-button" title="Zoom out">-</button>
-    </div>
-  `;
-}
-
 export function AgentPicker() {
   return html(`
     <div class="sr-picker">
       <p class="sr-muted">Select an agent</p>
-      <button class="sr-agent-list-button">researcher</button>
+      <button class="sr-agent-list-button">google-careers-scraper</button>
       <button class="sr-agent-list-button">linkedin-search</button>
       <button class="sr-agent-list-button">youtube-poster</button>
     </div>
-  `);
-}
-
-export function ToolsPanel() {
-  return html(`
-    <section class="sr-sidebar" style="max-width: 320px;">
-      <h1>Tools</h1>
-      <p class="sr-muted">Tools are planned but not active yet.</p>
-      <div class="sr-tool-card">web_search<br><span class="sr-muted">Planned</span></div>
-      <div class="sr-tool-card">file_reader<br><span class="sr-muted">Planned</span></div>
-    </section>
   `);
 }
 
@@ -109,7 +85,7 @@ export function AgentDetailsPopover() {
   return `
     <section class="sr-detail-popover">
       <div class="sr-detail-header">
-        <strong>researcher</strong>
+        <strong>google-careers-scraper</strong>
         <div class="sr-row">
           <button class="sr-button-secondary">Duplicate</button>
           <button class="sr-button-secondary">Close</button>
@@ -118,15 +94,14 @@ export function AgentDetailsPopover() {
       <div class="sr-detail-tabs">
         <button class="sr-tab sr-tab-active">Markdown</button>
         <button class="sr-tab">LangGraph</button>
-        <button class="sr-tab">Tools</button>
       </div>
-      <pre class="sr-detail-body"># Researcher Agent
+      <pre class="sr-detail-body"># Google Careers Scraper Agent
 
 Goal:
-Find accurate information.
+Scrape Google Careers search results and return matching jobs.
 
 Tools:
-- web_search</pre>
+- google_careers_scraper</pre>
     </section>
   `;
 }

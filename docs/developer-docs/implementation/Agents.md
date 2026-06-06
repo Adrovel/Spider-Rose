@@ -2,7 +2,7 @@
 
 Version: 0.1.0  
 Status: Phase 1 scope locked  
-Last updated: 2026-06-01
+Last updated: 2026-06-05
 
 Phase 1 agents are Markdown files under `agents/`.
 
@@ -17,7 +17,7 @@ agents/<agent-slug>.md
 For example:
 
 ```text
-agents/researcher.md
+agents/google-careers-scraper.md
 agents/linkedin-search.md
 ```
 
@@ -44,8 +44,7 @@ The canvas stores visual cards, not duplicate agents. This means one Markdown ag
 ```json
 {
   "cards": [
-    { "id": "researcher-1", "agent": "researcher", "x": 70, "y": 72 },
-    { "id": "researcher-2", "agent": "researcher", "x": 180, "y": 160 }
+    { "id": "google-careers-scraper-1", "agent": "google-careers-scraper", "x": 70, "y": 72 }
   ]
 }
 ```
@@ -54,82 +53,58 @@ Clicking a card opens a popup with:
 
 - Markdown view
 - LangGraph view
-- Tools view
+- LangGraph view
 
-In Phase 1, Markdown is editable in the sidebar and LangGraph/Tools are inspection placeholders.
+In Phase 1, Markdown is editable in the sidebar and LangGraph is an inspection placeholder.
 
 ## Preloaded Agents
 
 Every new Spider Rose project starts with:
 
 ```text
-agents/hello.md
-agents/researcher.md
+agents/google-careers-scraper.md
 ```
 
-`hello` is a lightweight onboarding agent. It greets the user, explains Spider Rose briefly, and helps them take a first action.
+`google-careers-scraper` is the current default while the two-block Google Careers demo is the immediate priority.
 
-`researcher` is the default agent in Phase 1. It is responsible for turning a user task into a clear, structured starting point.
-
-Initial hello template:
+Initial Google Careers scraper template:
 
 ```md
-# Hello Agent
+# Google Careers Scraper Agent
 
 Goal:
-Greet the user, explain Spider Rose briefly, and help them take their first action.
+Scrape Google Careers search results and return a small, readable list of matching jobs.
 
 Instructions:
-- Keep the response short and friendly.
-- Mention that agents are stored as Markdown files.
-- Suggest creating or editing an agent when the user is ready.
-- Avoid technical jargon unless the user asks for it.
+- Use the user's task as the search query.
+- Treat text after "in" as the location when the user writes a task like "software engineer in India".
+- Return job title, location, level, and minimum qualifications.
+- Do not invent jobs when the Careers page cannot be fetched or parsed.
 
 Tools:
-- none
+- google_careers_scraper
 
 Output:
-hello_message
-```
-
-Initial researcher template:
-
-```md
-# Researcher Agent
-
-Goal:
-Find accurate information and turn a user task into a clear starting point.
-
-Instructions:
-- Identify what the user is asking for.
-- Pull out names, entities, platforms, and constraints.
-- Say what information is known and what is still missing.
-- Return concise, structured output.
-
-Tools:
-- web_search
-
-Output:
-research_summary
+google_careers_jobs
 ```
 
 ## Format
 
 ```md
-# Researcher Agent
+# Google Careers Scraper Agent
 
 Goal:
-Find accurate information.
+Scrape Google Careers search results and return matching jobs.
 
 Instructions:
-- Search reliable sources.
-- Summarize findings.
+- Use the user's task as the search query.
+- Return clear, structured output.
 
 Tools:
-- web_search
+- google_careers_scraper
 
 Output:
-research_summary
+google_careers_jobs
 ```
 
 ## Naming
@@ -138,7 +113,7 @@ Agent names are converted into lowercase slugs:
 
 | Input | File |
 |---|---|
-| `Researcher` | `agents/researcher.md` |
+| `Google Careers Scraper` | `agents/google-careers-scraper.md` |
 | `LinkedIn Search` | `agents/linkedin-search.md` |
 | `identify_person` | `agents/identify-person.md` |
 
@@ -146,7 +121,7 @@ Agent names are converted into lowercase slugs:
 
 `/run <task>` sends the task to the default agent inside the `spiderrose` shell.
 
-New custom agents can be created with `/new agent <name>`. The first preloaded default remains `researcher` unless the visual editor sets another default.
+New custom agents can be created with `/new agent <name>`. The first preloaded default is currently `google-careers-scraper` while the demo is being made workable.
 
 ## Limits
 

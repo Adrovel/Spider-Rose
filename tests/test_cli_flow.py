@@ -13,10 +13,33 @@ from spider_rose.cli import (
     SlashCommandCompleter,
     app,
 )
-from spider_rose.server import _read_workflow_layout, create_app
+from spider_rose.server import APP_HTML, _read_workflow_layout, create_app
+from spider_rose.google_careers import parse_google_careers_jobs, store_google_careers_jobs
 
 
 runner = CliRunner()
+
+
+GOOGLE_CAREERS_HTML = """
+<main>
+<h2>Jobs search results</h2>
+<a href="/about/careers/applications/jobs/results/123-software-engineer">
+<h3>Software Engineer III, AI Infrastructure</h3>
+</a>
+<span>Mid</span>
+<div>Google | Bengaluru, Karnataka, India</div>
+<h4>Minimum qualifications</h4>
+<p>Bachelor's degree or equivalent practical experience.</p>
+<p>2 years of experience with software development.</p>
+<a href="/about/careers/applications/jobs/results/456-product-manager">
+<h3>Product Manager II, Google Cloud</h3>
+</a>
+<span>Mid</span>
+<div>Google | Sunnyvale, CA, USA</div>
+<h4>Minimum qualifications</h4>
+<p>Bachelor's degree or equivalent practical experience.</p>
+</main>
+"""
 
 
 def test_composer_height_is_bounded():
@@ -58,12 +81,13 @@ def test_terminal_mvp_flow(tmp_path, monkeypatch):
     assert "Type a slash command" not in result.output
     assert "spiderrose >" not in result.output
     assert "Run" in result.output
-    assert "Researcher Agent" in result.output
+    assert "Google Careers Scraper Agent" in result.output
     assert "Search Nathan's LinkedIn" in result.output
     assert "Recent" not in result.output
     assert "Closed Spider Rose." in result.output
-    assert (tmp_path / "agents" / "researcher.md").exists()
-    assert (tmp_path / "agents" / "hello.md").exists()
+    assert (tmp_path / "agents" / "google-careers-scraper.md").exists()
+    assert not (tmp_path / "agents" / "researcher.md").exists()
+    assert not (tmp_path / "agents" / "hello.md").exists()
 
 
 def test_help_shows_interactive_slash_commands(tmp_path, monkeypatch):
@@ -144,9 +168,50 @@ def test_visual_routes_exist(tmp_path):
 
     assert "/" in routes
     assert "/workflow" in routes
-    assert "/tools" in routes
+    assert "/tools" not in routes
     assert "/api/agents" in routes
     assert "/api/workflow-layout" in routes
+    assert "/api/demo/google-careers/run" in routes
+
+
+def test_google_careers_visual_demo_is_rendered():
+    assert "Web Scraper: Google Careers" in APP_HTML
+    assert "Store: Job Results" in APP_HTML
+    assert "Jobs found" in APP_HTML
+    assert "Run demo" in APP_HTML
+    assert "Scraping Google Careers..." in APP_HTML
+    assert "/api/demo/google-careers/run" in APP_HTML
+    assert "Results are scraped from Google Careers when the demo runs." in APP_HTML
+    assert "canvasLayer.innerHTML = activeTab === 'workflow' ? ''" in APP_HTML
+    assert 'data-tab="tools"' not in APP_HTML
+    assert 'id="panelTools"' not in APP_HTML
+    assert 'data-detail="tools"' not in APP_HTML
+    assert 'id="zoomInBtn"' not in APP_HTML
+    assert 'id="zoomOutBtn"' not in APP_HTML
+
+
+def test_google_careers_parser_extracts_jobs_with_links():
+    jobs = parse_google_careers_jobs(GOOGLE_CAREERS_HTML)
+
+    assert len(jobs) == 2
+    assert jobs[0].title == "Software Engineer III, AI Infrastructure"
+    assert jobs[0].location == "Bengaluru, Karnataka, India"
+    assert jobs[0].level == "Mid"
+    assert jobs[0].url == "https://www.google.com/about/careers/applications/jobs/results/123-software-engineer"
+    assert jobs[0].minimum_qualifications[0] == "Bachelor's degree or equivalent practical experience."
+
+
+def test_google_careers_store_dedupes_by_url(tmp_path):
+    jobs = parse_google_careers_jobs(GOOGLE_CAREERS_HTML)
+
+    first = store_google_careers_jobs(tmp_path, jobs)
+    second = store_google_careers_jobs(tmp_path, jobs)
+
+    assert first.new_count == 2
+    assert first.duplicate_count == 0
+    assert second.new_count == 0
+    assert second.duplicate_count == 2
+    assert (tmp_path / "artifacts" / "google-careers" / "job-results.jsonl").exists()
 
 
 def test_workflow_layout_supports_duplicate_agent_cards(tmp_path):
@@ -154,8 +219,8 @@ def test_workflow_layout_supports_duplicate_agent_cards(tmp_path):
         json.dumps(
             {
                 "cards": [
-                    {"id": "researcher-1", "agent": "researcher", "x": 10, "y": 20},
-                    {"id": "researcher-2", "agent": "researcher", "x": 40, "y": 60},
+                    {"id": "google-careers-scraper-1", "agent": "google-careers-scraper", "x": 10, "y": 20},
+                    {"id": "google-careers-scraper-2", "agent": "google-careers-scraper", "x": 40, "y": 60},
                 ]
             }
         ),
@@ -165,4 +230,4 @@ def test_workflow_layout_supports_duplicate_agent_cards(tmp_path):
     layout = _read_workflow_layout(tmp_path)
 
     assert len(layout["cards"]) == 2
-    assert layout["cards"][1]["id"] == "researcher-2"
+    assert layout["cards"][1]["id"] == "google-careers-scraper-2"
